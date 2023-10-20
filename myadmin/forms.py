@@ -2,7 +2,6 @@ from django import forms
 from .models import LeaveType
 from myadmin.models import Department
 
-
 class EmployeeForm(forms.Form):
     empcode = forms.CharField(max_length=50)
     firstName = forms.CharField(max_length=100)
@@ -21,3 +20,8 @@ class LeaveTypeForm(forms.ModelForm):
     class Meta:
         model = LeaveType
         fields = ['LeaveType', 'Description']
+
+class DepartmentForm(forms.ModelForm):
+    class Meta:
+        model = Department
+        fields = ['department_name', 'department_shortname', 'department_code']

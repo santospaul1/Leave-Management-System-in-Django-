@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel - Employee Leave</title>
+    <!-- Include your CSS and JavaScript links here -->
+</head>
+<body>
+    <!-- Include your preloader and sidebar menu here -->
+
+    <div class="page-container">
+        <!-- Include your sidebar menu here -->
+
+        <div class="main-content">
+            <!-- Include your header area here -->
+
+            <div class="page-title-area">
+                <!-- Include your page title area here -->
+            </div>
+
+            <div class="main-content-inner">
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Include your success/error messages here -->
+
+                                <center><a href="add-leavetype" class="btn btn-sm btn-info">Add New Leave Type</a></center>
+                                <table id="dataTable3" class="table table-hover table-striped text-center">
+                                    <thead class="text-capitalize">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Leave Type</th>
+                                            <th>Description</th>
+                                            <th>Created</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for leave_type in leave_types %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ leave_type.LeaveType }}</td>
+                                            <td>{{ leave_type.Description }}</td>
+                                            <td>{{ leave_type.CreationDate }}</td>
+                                            <td>
+                                                <a href="edit-leaveType?id={{ leave_type.id }}"><i class="fa fa-edit" style="color:green"></i></a>
+                                                <a href="leave-type-section?del={{ leave_type.id }}" onclick="return confirm('Do you want to delete?');"><i class="fa fa-trash" style="color:red"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include your JavaScript links here -->
+</body>
+</html>

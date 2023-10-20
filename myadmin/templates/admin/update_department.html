@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Department</title>
+    <!-- Add your CSS imports here -->
+</head>
+<body>
+    <h1>Update Department</h1>
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    {% if msg %}
+        <div class="alert alert-success">{{ msg }}</div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="departmentname">Department Name:</label>
+        <input type="text" id="departmentname" name="departmentname" value="{{ department.DepartmentName }}" required><br>
+
+        <label for="departmentshortname">Shortform:</label>
+        <input type="text" id="departmentshortname" name="departmentshortname" value="{{ department.DepartmentShortName }}" required><br>
+
+        <label for="deptcode">Code:</label>
+        <input type="text" id="deptcode" name="deptcode" value="{{ department.DepartmentCode }}" required><br>
+
+        <input type="submit" name="update" value="Update Department">
+    </form>
+</body>
+</html>

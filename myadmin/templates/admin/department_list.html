@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Department List</title>
+</head>
+<body>
+    <h1>Department List</h1>
+    <ul>
+        {% for department in departments %}
+            <li>{{ department.DepartmentName }} - {{ department.DepartmentShortName }} - {{ department.DepartmentCode }} - {{ department.CreationDate }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
