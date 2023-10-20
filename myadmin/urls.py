@@ -18,7 +18,9 @@ urlpatterns = [
     path('employees/', views.employees, name='employees'),
     path('admin_login/', views.admin_login, name='admin_login'),
     path('leaves_history/', views.leaves_history, name='leave_history'),
-    path('user_logout', views.user_logout, name='user_logout'),
+    path('user_logout/', views.user_logout, name='user_logout'),
     path('manage-admin/', views.manage_admin, name='manage_admin'),
+    path('update_employee/',views.employee_update, name='update_employee'),
+
     # Add other URL patterns for your views
 ]

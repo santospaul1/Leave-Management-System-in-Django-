@@ -1,13 +1,15 @@
 import hashlib
 
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
 from myadmin.models import Leave, Employee
 import myadmin
 from . import admin
 from django.contrib import messages
-from .forms import EmployeeForm, LeaveTypeForm
+from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm
 from .models import Admin, Department, Employee, LeaveType, Leave
 
 
@@ -61,6 +63,7 @@ def add_employee(request):
             country = form.cleaned_data['country']
             mobileno = form.cleaned_data['mobileno']
             status = 1  # Assuming status is hardcoded to 1
+
 
             employee = Employee(
                 empcode=empid,
@@ -356,3 +359,25 @@ def manage_admin(request):
 
     admins = Admin.objects.all()
     return render(request, 'admin/manage_admin.html', {'admins': admins})
+@login_required
+def pending_leaves(request):
+    leaves = Leave.objects.filter(status=0).order_by('-id')
+    context = {
+        'leaves': leaves
+    }
+    return render(request, 'admin/pending_history.html', context)
+
+
+def employee_update(request, id):
+
+  employee = get_object_or_404(Employee, id=id)
+
+  form = EmployeeUpdateForm(instance=employee)
+
+  if request.method == 'POST':
+    form = EmployeeUpdateForm(request.POST, instance=employee)
+    if form.is_valid():
+      form.save()
+      return HttpResponseRedirect('/employees')
+
+  return render(request, 'admin/update.html', {'form': form})
