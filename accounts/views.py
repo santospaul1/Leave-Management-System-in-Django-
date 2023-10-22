@@ -58,6 +58,18 @@ def recover_password(request):
 
     return render(request, 'login_employee/recover_password.html')
 
+
+def change_password(request):
+    empid = request.GET.get('empid')
+    if not empid:
+        return render(request, 'invalid_request.html')  # Create an 'invalid_request.html' template for this purpose
+
+    if request.method == 'POST':
+        new_password = request.POST['newpassword']
+        # Perform the password change logic here and handle any errors
+        # If successful, consider redirecting to a success page
+
+    return render(request, 'login_employee/change_password.html', {'empid': empid})
 # Add any other necessary imports and view functions
 
 # Add any other necessary imports and view functions
