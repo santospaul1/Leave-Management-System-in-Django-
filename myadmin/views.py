@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from .models import Notification
 from myadmin.models import Leave, Employee
 import myadmin
 from . import admin
@@ -22,7 +23,7 @@ def admin_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('myadmin:add_department')
+            return redirect('myadmin:dashboard')
         else:
             messages.error(request, 'Invalid username or password')
     return render(request, 'admin/admin_login.html')
@@ -37,10 +38,12 @@ def dashboard(request):
         return redirect('admin_login')
 
     leaves = Leave.objects.order_by('-id')[:7]
+    notifications = Notification.objects.filter(user=request.user, is_read=False)[:5]
 
     context = {
         'page': 'dashboard',
         'leaves': leaves,
+        'notifications': notifications,
     }
 
     return render(request, 'admin/dashboard.html')
@@ -140,7 +143,9 @@ def add_leave_type(request):
 
     return render(request, 'admin/add_leave_type.html', {'form': form})
 
-
+def leave_type_list(request):
+    leave_types = LeaveType.objects.all()  # Query all leave types
+    return render(request, 'myadmin/leave_type_list.html', {'leave_types': leave_types})
 def approved_leaves(request):
     if not request.user.is_authenticated:
         return redirect('login')  # Redirect to your login page
@@ -149,8 +154,13 @@ def approved_leaves(request):
     approved_leaves = LeaveType.objects.filter(Status=1)
 
     if request.method == 'POST':
-        # Handle any POST requests if needed
-        pass
+        query = LeaveType.objects.all()
+
+        # Execute the query and get the results
+        results = query.values()
+
+        # Get the count of results
+        leavtypcount = query.count()
     leaves = Leave.objects.filter(Status=1).order_by('-id')
 
     context = {
@@ -192,7 +202,7 @@ def department(request):
             messages.error(request, "Department not found")
 
     departments = Department.objects.all()
-    return render(request, 'admin/department.html', {'departments': departments})
+    return render(request, 'admin/department_list.html', {'departments': departments})
 def update_department(request, deptid):
     global department
     if not request.session.get('alogin'):
@@ -347,3 +357,45 @@ def employee_update(request, id):
       return HttpResponseRedirect('/employees')
 
   return render(request, 'admin/update.html', {'form': form})
+
+ # Import your Notification model
+
+def approved_app_counter_view(request):
+
+    leavtypcount = LeaveType.objects.count()
+
+    context = {
+        'leavtypcount': leavtypcount,
+    }
+
+    return render(request, 'admin/approvedapp-counter.html', context)
+
+
+def declined_leaves_counter(request):
+    leavetype_count = LeaveType.objects.filter(status='2').count()
+
+    return render(request, 'admin/declineapp-counter.html', {'leavetype_count': leavetype_count})
+
+
+def count_departments(request):
+    department_count = department.objects.count()
+
+    return render(request, 'admin/dept-counter.html', {'department_count': department_count})
+
+
+def count_employees(request):
+    employee_count = employees.objects.count()
+
+    return render(request, 'admin/emp-counter.html', {'employee_count': employee_count})
+
+
+def count_leave_types(request):
+    leave_type_count = LeaveType.objects.count()
+
+    return render(request, 'leavetype-counter.html', {'leave_type_count': leave_type_count})
+
+
+def count_pending_leaves(request):
+    pending_leave_count = LeaveType.objects.filter(Status=0).count()
+
+    return render(request, 'admin/pendingapp-counter.html', {'pending_leave_count': pending_leave_count})

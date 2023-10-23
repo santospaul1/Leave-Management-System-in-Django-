@@ -1,0 +1,12 @@
+{% extends 'leave_type_section.html' %}
+
+{% block content %}
+<h1>Leave Types</h1>
+<ul>
+    {% for leave_type in leave_types %}
+        <li>{{ leave_type.name }}</li>
+    {% empty %}
+        <li>No leave types available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

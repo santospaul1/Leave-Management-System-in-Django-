@@ -1,0 +1,14 @@
+<!-- admin-notification.html -->
+<div class="notification-dropdown">
+    <div class="notification-btn">
+        <i class="ti-bell"></i>
+        <span class="badge badge-primary">{{ notifications|length }}</span>
+    </div>
+    <ul class="notification-content">
+        {% for notification in notifications %}
+            <li class="notification-item">
+                <a href="{{ notification.link }}">{{ notification.content }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

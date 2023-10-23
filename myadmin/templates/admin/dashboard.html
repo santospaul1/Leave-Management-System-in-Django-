@@ -35,7 +35,7 @@
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="{% url 'myadmin:dashboard' %}"><img src="{% static 'assets/images/icon/logo.png' %}" alt="logo"></a>
+                    <a href="{% url 'myadmin:dashboard' %}"><img src="{% static 'logo.png' %}" alt="logo"></a>
                 </div>
             </div>
             <div class="main-menu">
@@ -64,7 +64,7 @@
                             <li id="full-view"><i class="ti-fullscreen"></i></li>
                             <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
                             <!-- Notification bell -->
-                            {% include 'yourapp/admin-notification.html' %}
+                            {% include 'admin/admin-notification.html' %}
                         </ul>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                         <div class="breadcrumbs-area clearfix">
                             <h4 class="page-title pull-left">Dashboard</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a href="{% url 'dashboard' %}">Home</a></li>
+                                <li><a href="{% url 'myadmin:dashboard' %}">Home</a></li>
                                 <li><span>Admin's Dashboard</span></li>
                             </ul>
                         </div>
@@ -87,7 +87,7 @@
                             <img class="avatar user-thumb" src="{% static 'assets/images/admin.png' %}" alt="avatar">
                             <h4 class="user-name dropdown-toggle" data-toggle="dropdown">ADMIN <i class="fa fa-angle-down"></i></h4>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                <a class="dropdown-item" href="{% url 'myadmin:user_logout' %}">Log Out</a>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                                         <h4 class="header-title mb-0">Available Leave Types</h4>
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
-                                        <h1>{% include 'yourapp/counters/leavetype-counter.html' %}</h1>
+                                        <h1>{% include 'admin/leavetype-counter.html' %}</h1>
                                         <span>Leave Types</span>
                                     </div>
                                 </div>
@@ -120,7 +120,7 @@
                                         <h4 class="header-title mb-0">Registered Employees</h4>
                                     </div>
                                     <div class= "d-flex justify-content-between pb-2">
-                                        <h1>{% include 'yourapp/counters/emp-counter.html' %}</h1>
+                                        <h1>{% include 'admin/emp-counter.html' %}</h1>
                                         <span>Active Employees</span>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                         <h4 class="header-title mb-0">Available Departments</h4>
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
-                                        <h1>{% include 'yourapp/counters/dept-counter.html' %}</h1>
+                                        <h1>{% include 'admin/dept-counter.html' %}</h1>
                                         <span>Employee Departments</span>
                                     </div>
                                 </div>
@@ -153,7 +153,7 @@
                                         <h4 class="header-title mb-0">Pending Application</h4>
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
-                                        <h1>{% include 'yourapp/counters/pendingapp-counter.html' %}</h1>
+                                        <h1>{% include 'admin/pendingapp-counter.html' %}</h1>
                                         <span>Pending</span>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                                         <h4 class="header-title mb-0">Declined Application</h4>
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
-                                        <h1>{% include 'yourapp/counters/declineapp-counter.html' %}</h1>
+                                        <h1>{% include 'admin/declineapp-counter.html' %}</h1>
                                         <span>Declined</span>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@
                                         <h4 class="header-title mb-0">Approved Application</h4>
                                     </div>
                                     <div class="d-flex justify-content-between pb-2">
-                                        <h1>{% include 'yourapp/counters/approvedapp-counter.html' %}</h1>
+                                        <h1>{% include 'admin/approvedapp-counter.html' %}</h1>
                                         <span>Approved</span>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                                 <div class="trd-history-tabs">
                                     <ul class="nav" role="tablist">
                                         <li>
-                                            <a class="active" data-toggle="tab" href="{% url 'dashboard' %}" role="tab">Recent List</a>
+                                            <a class="active" data-toggle="tab" href="{% url 'myadmin:dashboard' %}" role="tab">Recent List</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -257,7 +257,7 @@
             </div>
             <!-- row area start -->
         </div>
-        {% include 'yourapp/footer.html' %}
+        <footer>h</footer>
     </div>
     <!-- footer area end -->
     </div>

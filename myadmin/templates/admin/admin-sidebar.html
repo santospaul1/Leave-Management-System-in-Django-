@@ -8,27 +8,29 @@
         </a>
     </li>
     <li>
-        <a href="{% url 'myleavetype_list' %}">
+        <a href="{% url 'myadmin:leavetype_list' %}">
             <i class="ti-id-badge"></i>
             <p>Leave Types</p>
         </a>
     </li>
     <li>
-        <a href="{% url 'employee_list' %}">
+        <a href="{% url 'myadmin:employees' %}">
             <i class="ti-user"></i>
             <p>Employees</p>
         </a>
     </li>
     <li>
-        <a href="{% url 'department_list' %}">
+        <a href="{% url 'myadmin:department' %}">
             <i class="ti-blackboard"></i>
             <p>Departments</p>
         </a>
     </li>
+
     <li>
-        <a href="{% url 'leave_list' %}">
+        <a href="{% url 'myadmin:leave_type_section' %}">
             <i class="ti-calendar"></i>
             <p>Leave Applications</p>
         </a>
     </li>
+
 </ul>

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
 
+from accounts.views import employee_login, change_password
 from myadmin.views import dashboard, admin_login
 
 urlpatterns = [
