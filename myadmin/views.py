@@ -1,10 +1,9 @@
 import hashlib
-
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-
 from myadmin.models import Leave, Employee
 import myadmin
 from . import admin
@@ -12,7 +11,39 @@ from django.contrib import messages
 from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm
 from .models import Admin, Department, Employee, LeaveType, Leave
 
+# Rest of your views...
 
+
+
+def admin_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('myadmin:add_department')
+        else:
+            messages.error(request, 'Invalid username or password')
+    return render(request, 'admin/admin_login.html')
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('admin_login')
+def dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('admin_login')
+
+    leaves = Leave.objects.order_by('-id')[:7]
+
+    context = {
+        'page': 'dashboard',
+        'leaves': leaves,
+    }
+
+    return render(request, 'admin/dashboard.html')
 def add_admin(request):
     if request.method == 'POST':
         fullname = request.POST.get('fullname')
@@ -20,12 +51,13 @@ def add_admin(request):
         password = request.POST.get('password')
         username = request.POST.get('username')
 
-        admin = Admin(fullname=fullname, email=email, password=password, username=username)
+        admin = Admin(fullname=fullname, email=email, username=username)
+        admin.set_password(password)  # Set the password securely
         admin.save()
 
         return render(request, 'admin/success.html', {'message': 'New admin has been added successfully'})
 
-    return render(request, 'admin/add_admin.html')  # Updated template path
+    return render(request, 'admin/add_admin.html')
 
 
 def add_department(request):
@@ -139,75 +171,28 @@ def employee_leave_details(request, leaveid):
     leave = get_object_or_404(LeaveType, id=leaveid)
     # Add any code to display leave details here
     pass
-def dashboard(request):
-    if not request.session.get('alogin'):
-        return redirect('index')  # Redirect to your login page or appropriate URL
-    #emp_count = get_employee_count()
-    #leave_count = get_leave_count()
-    leaves = Leave.objects.order_by('-id')[:7]
-
-    context = {
-        'page': 'dashboard',  # Set the current page
-        'leaves': leaves,
-    }
-
-    return render(request, 'admin/dashboard.html', context)
 
 
+
+@login_required
 def declined_leaves(request):
-    # Add your data retrieval logic here
-    # For example, fetching declined leaves and related employee information
-    # Replace this with your actual data retrieval logic
-
-    try:
-        # Assuming you have Leave and Employee models, you can fetch the data like this
-        declined_leaves = Leave.objects.filter(Status=2).order_by('-id')
-
-        # Assuming you have an Employee model with related fields like FirstName and LastName
-        results = [{'EmpId': leave.emp.EmpId,
-                    'FirstName': leave.emp.FirstName,
-                    'LastName': leave.emp.LastName,
-                    'LeaveType': leave.LeaveType,
-                    'PostingDate': leave.PostingDate,
-                    'Status': leave.Status,
-                    'lid': leave.id} for leave in declined_leaves]
-
-    except Exception as e:
-        error = str(e)
-        results = []
-
+    declined_leaves = Leave.objects.filter(Status=2).order_by('-id')
     context = {
-        'error': error if 'error' in locals() else None,
-        'msg': None,  # You can provide a success message if needed
-        'results': results,
-        'cnt': len(results),
+        'declined_leaves': declined_leaves
     }
-
     return render(request, 'admin/declined_leaves.html', context)
 def department(request):
-    if not request.session.get('alogin'):
-        return redirect('index')  # Redirect to the index page if the user is not logged in
-
-    error, msg = None, None
-
-    if 'del' in request.GET:
+    if request.method == "GET" and 'del' in request.GET:
         department_id = request.GET['del']
         try:
             department = Department.objects.get(id=department_id)
             department.delete()
-            msg = "The selected department has been deleted."
+            messages.success(request, "Department deleted successfully")
         except Department.DoesNotExist:
-            error = "The department does not exist."
+            messages.error(request, "Department not found")
 
     departments = Department.objects.all()
-
-    context = {
-        'error': error,
-        'msg': msg,
-        'departments': departments,
-    }
-
-    return render(request, 'admin/department.html', context)
+    return render(request, 'admin/department.html', {'departments': departments})
 def update_department(request, deptid):
     global department
     if not request.session.get('alogin'):
@@ -302,20 +287,6 @@ def employees(request):
     }
 
     return render(request, 'admin/employees.html', context)
-def admin_login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        try:
-            admin = Admin.objects.get(UserName=username, Password=password)
-            request.session['alogin'] = username
-            return redirect('dashboard')  # Redirect to the appropriate URL
-        except Admin.DoesNotExist:
-            messages.error(request, 'Invalid Details')
-
-    return render(request, 'admin/admin_login.html')
-
 
 def leaves_history(request):
     if not request.user.is_authenticated:
@@ -341,13 +312,8 @@ def leave_type_section(request):
     leave_types = LeaveType.objects.all()
 
     return render(request, 'admin/leave_type_section.html', {'leave_types': leave_types})
-def user_logout(request):
-    logout(request)
-    return redirect('index')
-def manage_admin(request):
-    if not request.user.is_authenticated:
-        return redirect('index')  # Redirect to the login page if not authenticated
 
+def manage_admin(request):
     if request.method == "GET" and 'del' in request.GET:
         id = request.GET.get('del')
         try:
@@ -361,7 +327,7 @@ def manage_admin(request):
     return render(request, 'admin/manage_admin.html', {'admins': admins})
 @login_required
 def pending_leaves(request):
-    leaves = Leave.objects.filter(status=0).order_by('-id')
+    leaves = Leave.objects.filter(Status=0).order_by('-id')
     context = {
         'leaves': leaves
     }

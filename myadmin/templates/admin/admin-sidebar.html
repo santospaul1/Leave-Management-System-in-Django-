@@ -1,0 +1,34 @@
+<!-- admin-sidebar.html -->
+
+<ul class="nav">
+    <li>
+        <a href="{% url 'myadmin:dashboard' %}">
+            <i class="ti-dashboard"></i>
+            <p>Dashboard</p>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'myleavetype_list' %}">
+            <i class="ti-id-badge"></i>
+            <p>Leave Types</p>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'employee_list' %}">
+            <i class="ti-user"></i>
+            <p>Employees</p>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'department_list' %}">
+            <i class="ti-blackboard"></i>
+            <p>Departments</p>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'leave_list' %}">
+            <i class="ti-calendar"></i>
+            <p>Leave Applications</p>
+        </a>
+    </li>
+</ul>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -19,7 +20,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/default-css.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
-    <!-- modernizr css -->
+    <!-- modernizr js -->
     <script src="{% static 'assets/js/vendor/modernizr-2.8.3.min.js' %}"></script>
 </head>
 <body>
@@ -27,19 +28,19 @@
     <div id="preloader">
         <div class="loader"></div>
     </div>
-    <!-- preloader area end>
+    <!-- preloader area end> -->
 
     <div class="page-container">
         <!-- sidebar menu area start -->
         <div class="sidebar-menu">
             <div class="sidebar-header">
                 <div class="logo">
-                    <a href="{% url 'dashboard' %}"><img src="{% static 'assets/images/icon/logo.png' %}" alt="logo"></a>
+                    <a href="{% url 'myadmin:dashboard' %}"><img src="{% static 'assets/images/icon/logo.png' %}" alt="logo"></a>
                 </div>
             </div>
             <div class="main-menu">
                 <div class="menu-inner">
-                    {% include 'yourapp/admin-sidebar.html' %}
+                    {% include 'admin/admin-sidebar.html' %}
                 </div>
             </div>
         </div>
@@ -56,14 +57,12 @@
                             <span></span>
                             <span></span>
                         </div>
-
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
                         <ul class="notification-area pull-right">
                             <li id="full-view"><i class="ti-fullscreen"></i></li>
                             <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-
                             <!-- Notification bell -->
                             {% include 'yourapp/admin-notification.html' %}
                         </ul>
