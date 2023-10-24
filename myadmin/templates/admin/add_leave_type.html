@@ -6,7 +6,7 @@
 <body>
     <div class="container">
         <h1>Add Leave Type</h1>
-        <form method="post" action="{% url 'add_leave_type' %}">
+        <form method="post" action="{% url 'myadmin:add_leave_type' %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Add Leave Type</button>

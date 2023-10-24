@@ -145,7 +145,7 @@ def add_leave_type(request):
 
 def leave_type_list(request):
     leave_types = LeaveType.objects.all()  # Query all leave types
-    return render(request, 'myadmin/leave_type_list.html', {'leave_types': leave_types})
+    return render(request, 'admin/leave_type_list.html', {'leave_types': leave_types})
 def approved_leaves(request):
     if not request.user.is_authenticated:
         return redirect('login')  # Redirect to your login page
@@ -267,15 +267,16 @@ def update_leave_type(request, lid):
     return render(request, 'admin/update_leave_type.html', context)
 
 def employees(request):
-    if not request.session.get('alogin'):
-        return redirect('index')  # Redirect to the appropriate URL
+
+    if not request.user.is_authenticated:
+        return redirect('admin_login')  # Redirect to the appropriate URL
 
     msg = None
 
     if request.method == 'GET':
         if 'inid' in request.GET:
             id = request.GET.get('inid')
-            status = 0
+            status = "Inactive"
             employee = Employee.objects.get(id=id)
             employee.Status = status
             employee.save()
@@ -283,7 +284,7 @@ def employees(request):
 
         if 'id' in request.GET:
             id = request.GET.get('id')
-            status = 1
+            status = "Active"
             employee = Employee.objects.get(id=id)
             employee.Status = status
             employee.save()
@@ -303,7 +304,7 @@ def leaves_history(request):
         return redirect('admin_login')  # Redirect to the login page if not authenticated
 
     leave_history = Leave.objects.select_related('employee').order_by('-id')  # Assuming you have a Leave model
-    return render(request, 'leaves/leave_history.html', {'leave_history': leave_history})
+    return render(request, 'admin/leaves_history.html', {'leave_history': leave_history})
 
 
 def leave_type_section(request):

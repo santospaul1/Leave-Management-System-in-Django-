@@ -115,7 +115,7 @@
                             {% endif %}
                             <div class="card-body">
                                 <div class="data-tables datatable-dark">
-                                    <center><a href="{% url 'add_admin' %}" class="btn btn-sm btn-info">Add New Administrator</a></center>
+                                    <center><a href="{% url 'myadmin:add_admin' %}" class="btn btn-sm btn-info">Add New Administrator</a></center>
                                     <table id="dataTable3" class="table table-striped table-hover text-center">
                                         <thead class="text-capitalize">
                                             <tr>
@@ -136,7 +136,7 @@
                                                 <td>{{ admin.email }}</td>
                                                 <td>{{ admin.updationDate }}</td>
                                                 <td>
-                                                    <a href="{% url 'manage_admin' %}?del={{ admin.id }}" onclick="return confirm('Do you want to delete?')">
+                                                    <a href="{% url 'myadmin:manage_admin' %}?del={{ admin.id }}" onclick="return confirm('Do you want to delete?')">
                                                         <i class="fa fa-trash" style="color:red"></i>
                                                     </a>
                                                 </td>

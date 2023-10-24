@@ -6,10 +6,25 @@
 </head>
 <body>
     <h1>Department List</h1>
-    <ul>
-        {% for department in departments %}
-            <li>{{ department.DepartmentName }} - {{ department.DepartmentShortName }} - {{ department.DepartmentCode }} - {{ department.CreationDate }}</li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Department Name</th>
+                <th>Short Name</th>
+                <th>Department Code</th>
+                <th>Creation Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for department in departments %}
+                <tr>
+                    <td>{{ department.department_name }}</td>
+                    <td>{{ department.department_shortname }}</td>
+                    <td>{{ department.department_code }}</td>
+                    <td>{{ department.CreationDate }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

@@ -10,7 +10,7 @@
     <table>
         <thead>
             <tr>
-                <th>#</th>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Employee ID</th>
                 <th>Department</th>
@@ -22,20 +22,21 @@
         <tbody>
             {% for employee in employees %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ employee.FirstName }} {{ employee.LastName }}</td>
-                <td>{{ employee.EmpId }}</td>
-                <td>{{ employee.Department }}</td>
-                <td>{{ employee.RegDate }}</td>
+              <!--  <td>{{ forloop.counter }}</td> -->
+                <td>{{ employee.empcode }}</td>
+                <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                <td>{{ employee.department }}</td>
+                <td>{{ employee.PostingDate }}</td>
+                <td>{{ employee.status }}</td>
                 <td>
                     {% if employee.Status == 1 %}
                     <span class="badge badge-pill badge-success">Active</span>
-                    <a href="{% url 'employees' inid=employee.id %}" onclick="return confirm('Are you sure you want to inactive this employee?');">
+                    <a href="{% url 'myadmin:employees' inid=employee.id %}" onclick="return confirm('Are you sure you want to inactive this employee?');">
                         <i class="fa fa-times-circle" style="color:red" title="Inactive"></i>
                     </a>
-                    {% else %}
+                    {% elif employees.status == 0 %}
                     <span class="badge badge-pill badge-danger">Inactive</span>
-                    <a href="{% url 'employees' id=employee.id %}" onclick="return confirm('Are you sure you want to active this employee?');">
+                    <a href="{% url 'myadmin:employees' id=employee.id %}" onclick="return confirm('Are you sure you want to active this employee?');">
                         <i class="fa fa-check" style="color:green" title="Active"></i>
                     </a>
                     {% endif %}

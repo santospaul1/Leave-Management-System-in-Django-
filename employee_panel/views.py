@@ -42,7 +42,7 @@ def leave_history(request):
         'leave_history': leave_history
     }
 
-    return render(request, 'employee/leave_history.html', context)
+    return render(request, 'employee/leaves_history.html', context)
 def apply_leave(request):
     if request.method == "POST":
         empid = request.user.id

@@ -27,8 +27,12 @@ GENDER_CHOICES = (
     ('Female', 'Female'),
     ('Other', 'Other'),
 )
+EMP_CHOICES = (
+        ( 'Active', 'Active'),
+        ( 'Inactive', 'Inactive'),
+        )
 class Employee(models.Model):
-    empcode = models.CharField(max_length=50)
+    empcode = models.AutoField(primary_key=True)
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     email = models.EmailField()
@@ -44,9 +48,14 @@ class Employee(models.Model):
     city = models.CharField(max_length=100, default="Mombasa")
     country = models.CharField(max_length=100)
     mobileno = models.CharField(max_length=10)
-    status = models.IntegerField(default=1)
+    status = models.CharField(
+        max_length=10,
+        choices=EMP_CHOICES,
+        default='Active'
+    )
+    PostingDate = models.DateField(auto_now_add=True)
     def __str__(self):
-        return f"{self.empcode} - {self.firstName} {self.lastName}"
+        return f"{self.empcode} - {self.firstName} {self.lastName} - {self.PostingDate}"
 
 
 class LeaveType(models.Model):
