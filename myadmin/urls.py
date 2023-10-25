@@ -23,6 +23,7 @@ urlpatterns = [
     path('manage-admin/', views.manage_admin, name='manage_admin'),
     path('update_employee/',views.employee_update, name='update_employee'),
     path('department', views.department, name='department'),
+    path('pending_leaves/', views.pending_leaves, name='pending_leaves'),
     path('leave_type_list/', views.leave_type_list, name='leave_type_section'),
     path('approved_app_counter_view', views.approved_app_counter_view, name='approved_app_counter'),
     path('declined_leaves_counter', views.declined_leaves_counter, name='declined_leaves_counter'),

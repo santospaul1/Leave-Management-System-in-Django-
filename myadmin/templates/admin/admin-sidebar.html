@@ -27,9 +27,16 @@
     </li>
 
     <li>
-        <a href="{% url 'myadmin:leave_type_section' %}">
+        <a href="{% url 'myadmin:pending_leaves' %}">
             <i class="ti-calendar"></i>
-            <p>Leave Applications</p>
+            <p>New Requests</p>
+        </a>
+    </li>
+
+    <li>
+        <a href="{% url 'myadmin:leave_history' %}">
+            <i class="ti-calendar"></i>
+            <p>Leave History</p>
         </a>
     </li>
 

@@ -5,8 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Notification
-from myadmin.models import Leave, Employee
-import myadmin
 from . import admin
 from django.contrib import messages
 from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm
@@ -151,17 +149,17 @@ def approved_leaves(request):
         return redirect('login')  # Redirect to your login page
     error = None
     msg = None
-    approved_leaves = LeaveType.objects.filter(Status=1)
+    approved_leaves = Leave.objects.filter(status=1)
 
     if request.method == 'POST':
-        query = LeaveType.objects.all()
+        query = Leave.objects.all()
 
         # Execute the query and get the results
         results = query.values()
 
         # Get the count of results
         leavtypcount = query.count()
-    leaves = Leave.objects.filter(Status=1).order_by('-id')
+    leaves = Leave.objects.filter(status=1).order_by('-id')
 
     context = {
         'error': error,
@@ -186,7 +184,7 @@ def employee_leave_details(request, leaveid):
 
 @login_required
 def declined_leaves(request):
-    declined_leaves = Leave.objects.filter(Status=2).order_by('-id')
+    declined_leaves = Leave.objects.filter(status=2).order_by('-id')
     context = {
         'declined_leaves': declined_leaves
     }
@@ -338,7 +336,7 @@ def manage_admin(request):
     return render(request, 'admin/manage_admin.html', {'admins': admins})
 @login_required
 def pending_leaves(request):
-    leaves = Leave.objects.filter(Status=0).order_by('-id')
+    leaves = Leave.objects.filter(status=0).order_by('-id')
     context = {
         'leaves': leaves
     }

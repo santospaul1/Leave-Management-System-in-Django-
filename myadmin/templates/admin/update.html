@@ -1,15 +1,114 @@
-{% extends 'base.html' %}
+{% if user.is_authenticated %}  <!-- Assuming user authentication is set up -->
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Admin Panel - Employee Leave</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Include your CSS and JavaScript links here -->
+</head>
+<body>
+    <!-- Preloader area -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- Preloader area end -->
 
-{% block content %}
+    <div class="page-container">
+        <!-- Sidebar menu area -->
+        <div class="sidebar-menu">
+            <!-- Include your sidebar content here -->
+        </div>
+        <!-- Sidebar menu area end -->
 
-<h1>Update Employee</h1>
+        <!-- Main content area start -->
+        <div class="main-content">
+            <!-- Header area -->
+            <div class="header-area">
+                <!-- Include your header content here -->
+            </div>
+            <!-- Header area end -->
 
-<form method="post">
-  {% csrf_token %}
-  
-  {{ form.as_p }}
-  
-  <button type="submit">Update</button>
-</form>
+            <!-- Page title area -->
+            <div class="page-title-area">
+                <!-- Include your page title content here -->
+            </div>
+            <!-- Page title area end -->
 
-{% endblock %}
+            <div class="main-content-inner">
+                <!-- Row area start -->
+                <div class="row">
+                    <!-- Trading history area start -->
+                    <div class="col-12 mt-5">
+                        <div class="card">
+                            {% if error %}
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Info:</strong> {{ error }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% elif msg %}
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <strong>Info:</strong> {{ msg }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                            <div class="card-body">
+                                <div class="single-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-striped table-bordered progress-table text-center">
+                                            <thead class="text-uppercase">
+                                                <tr>
+                                                    <th>S.N</th>
+                                                    <th>Employee ID</th>
+                                                    <th width="120">Full Name</th>
+                                                    <th>Leave Type</th>
+                                                    <th>Applied On</th>
+                                                    <th>Current Status</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for result in results %}
+                                                <tr>
+                                                    <td><b>{{ cnt }}</b></td>
+                                                    <td>{{ result.EmpId }}</td>
+                                                    <td><a href="update-employee/{{ result.id }}" target="_blank">{{ result.firstName }} {{ result.lastName }}</a></td>
+                                                    <td>{{ result.LeaveType }}</td>
+                                                    <td>{{ result.PostingDate }}</td>
+                                                    <td>
+                                                        {% if result.status == 1 %}
+                                                            <span style="color: green">Approved <i class="fa fa-check-square-o"></i></span>
+                                                        {% elif result.status == 2 %}
+                                                            <span style="color: red">Declined <i class="fa fa-times"></i></span>
+                                                        {% elif result.status == 0 %}
+                                                            <span style="color: blue">Pending <i class="fa fa-spinner"></i></span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td><a href="employeeLeave-details/{{ result.lid }}" class="btn btn-secondary btn-sm">View Details</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Trading history area end -->
+                </div>
+                <!-- Row area end -->
+            </div>
+        </div>
+        <!-- Main content area end -->
+    </div>
+
+    <!-- Include your JavaScript links here -->
+
+</body>
+</html>
+{% endif %}
