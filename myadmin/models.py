@@ -31,12 +31,23 @@ EMP_CHOICES = (
         ( 'Active', 'Active'),
         ( 'Inactive', 'Inactive'),
         )
+UN_CHOICES = (
+    ('Union', 'Union'),
+    ('Non-Union', 'Non-Union'),
+    ('Others', 'Others')
+
+)
 class Employee(models.Model):
     empcode = models.AutoField(primary_key=True)
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=255)
+    #employee_type = models.CharField(
+    #    max_length=10,
+    #    choices=UN_CHOICES,
+    #    default='Non-Union'
+    #)
     gender = models.CharField(
         max_length=10,
         choices=GENDER_CHOICES,
@@ -74,8 +85,8 @@ STATUS_CHOICES = (
         (2, 'Declined')
     )
 class Leave(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    EmpId = models.CharField(max_length=10, default='default_value')
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, to_field='empcode')
+    #EmpId = models.CharField(max_length=10, default='default_value')
     leave_type = models.CharField(max_length=100, default='Annual')
     posting_date = models.DateField(auto_now_add=True)
     status = models.CharField(

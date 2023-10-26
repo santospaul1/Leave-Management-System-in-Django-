@@ -30,7 +30,7 @@ def admin_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect('admin_login')
+    return redirect('myadmin:admin_login')
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('admin_login')

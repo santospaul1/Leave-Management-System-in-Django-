@@ -1,0 +1,2 @@
+from myadmin.models import *
+

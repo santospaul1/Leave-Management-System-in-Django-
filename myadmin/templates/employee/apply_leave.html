@@ -1,0 +1,46 @@
+<!-- apply_leave.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Leave Management System</title>
+    <!-- Include your CSS and other dependencies here -->
+</head>
+<body>
+<div class="container">
+    <h1>Apply For Leave Days</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        {% if msg %}
+        <div class="alert alert-success">{{ msg }}</div>
+        {% endif %}
+        <div class="form-group">
+            <label for="leavetype">Leave Type</label>
+            <select class="form-control" id="leavetype" name="leavetype">
+                <option value="" disabled selected>Choose your leave type</option>
+                {% for leave_type in leave_types %}
+                <option value="{{ leave_type.LeaveType }}">{{ leave_type.LeaveType }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fromdate">Starting Date</label>
+            <input class="form-control" type="date" name="fromdate" required>
+        </div>
+        <div class="form-group">
+            <label for="todate">End Date</label>
+            <input class="form-control" type="date" name="todate" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Describe Your Conditions</label>
+            <textarea class="form-control" name="description" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" name="apply">Submit</button>
+    </form>
+</div>
+</body>
+</html>

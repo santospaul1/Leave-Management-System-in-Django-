@@ -31,19 +31,21 @@ def change_password(request):
         else:
             messages.error(request, 'Your current password is wrong.')
 
-    return render(request, 'employee/change_password.html')
+    return render(request, 'accounts/change_password.html')
 
 @login_required
 def leave_history(request):
     user = request.user
-    leave_history = Leave.objects.filter(empid=user.id)
+    leave_history = Leave.objects.filter(employee=user.id)
 
     context = {
         'leave_history': leave_history
     }
 
-    return render(request, 'employee/leaves_history.html', context)
+    return render(request, 'employee/leave_history.html', context)
 def apply_leave(request):
+    error = ''
+    msg = ''
     if request.method == "POST":
         empid = request.user.id
         leavetype = request.POST['leavetype']
@@ -52,23 +54,30 @@ def apply_leave(request):
         description = request.POST['description']
 
         # Calculate date difference
-        from_date = datetime.datetime.strptime(fromdate, '%Y-%m-%d')
-        to_date = datetime.datetime.strptime(todate, '%Y-%m-%d')
+        from_date = datetime.strptime(fromdate, '%Y-%m-%d')  # Use datetime directly
+        to_date = datetime.strptime(todate, '%Y-%m-%d')  # Use datetime directly
         date_difference = (to_date - from_date).days
 
         if date_difference < 0:
-            error = "End Date should be after Starting Date."
+            error = "End Date should be after Starting Date"
         else:
-            # Create a Leave object
+            leave_type = LeaveType.objects.create(LeaveType=leavetype)
+
+            # Create an Employee instance
+            employee = Employee.objects.create(empcode=empid)
+
+            # Create a Leave instance
             leave = Leave.objects.create(
-                empid=empid,
-                LeaveType=leavetype,
+                empid=employee,
+                LeaveType=leave_type,
                 FromDate=fromdate,
                 ToDate=todate,
                 Description=description,
-                Status=0,
+                status=0,
                 IsRead=0
             )
+            # Create a Leave object
+
             leave.save()
             msg = "Your leave application has been applied. Thank you."
 
@@ -81,18 +90,19 @@ def apply_leave(request):
     }
 
     return render(request, 'employee/apply_leave.html', context)
+@login_required()
 def logout(request):
     # Clear session data
     request.session.flush()
-    return redirect('index')  # Redirect to the 'index' URL name or any other URL
+    return redirect('accounts:employee_login')  # Redirect to the 'index' URL name or any other URL
 def update_profile(request):
-    if not request.session.get('emplogin'):
-        return redirect('index')  # Redirect to the 'index' URL name or any other URL
+   # if not request.session.get('emplogin'):
+    #    return redirect('accounts:employee_login')  # Redirect to the 'index' URL name or any other URL
 
     if request.method == 'POST':
         eid = request.session['emplogin']
         try:
-            employee = Employee.objects.get(EmailId=eid)
+            employee = Employee.objects.get(email=eid)
             employee.FirstName = request.POST.get('firstName')
             employee.LastName = request.POST.get('lastName')
             employee.Gender = request.POST.get('gender')
@@ -110,7 +120,7 @@ def update_profile(request):
     # Fetch the employee data for pre-filling the form
     eid = request.session.get('emplogin')
     try:
-        employee = Employee.objects.get(EmailId=eid)
+        employee = Employee.objects.get(email=eid)
     except Employee.DoesNotExist:
         employee = None
 
