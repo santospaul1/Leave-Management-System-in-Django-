@@ -1,12 +1,13 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Admin Panel - Employee Leave</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{% static 'images/icon/favicon.ico' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/images/icon/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
@@ -15,95 +16,84 @@
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}">
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <!-- Start datatable css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
     <!-- others css -->
     <link rel="stylesheet" href="{% static 'css/typography.css' %}">
     <link rel="stylesheet" href="{% static 'css/default-css.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <!-- modernizr css -->
+    <!-- modernizr js -->
     <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
 </head>
 <body>
-    <!-- Include your preloader and sidebar menu here -->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- preloader area end> -->
 
     <div class="page-container">
-        <!-- Include your sidebar menu here -->
-
-
-        <div id="preloader">
-    <div class="loader"></div>
-</div>
-<!-- Preloader area end -->
-
-<div class="page-container">
-    <!-- Sidebar menu area start -->
-    <div class="sidebar-menu">
-        <div class="sidebar-header">
-            <div class="logo">
-                <a href="{% url 'myadmin:dashboard' %}"><img src="{% static 'images/icon/logo.png' %}" alt="logo"></a>
+        <!-- sidebar menu area start -->
+        <div class="sidebar-menu">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <a href="{% url 'myadmin:dashboard' %}"><img src="{% static 'images/icon/logo.png' %}" alt="logo"></a>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="menu-inner">
+                    {% include 'admin/admin-sidebar.html' %}
+                </div>
             </div>
         </div>
-        <div class="main-menu">
-            <div class="menu-inner">
-                {% include 'admin/admin-sidebar.html' %}
-            </div>
-        </div>
-    </div>
-    <!-- Sidebar menu area end -->
-    <!-- Main content area start -->
-    <div class="main-content">
-        <!-- Header area start -->
-        <div class="header-area">
-            <div class="row align-items-center">
-                <!-- Nav and search button -->
-                <div class="col-md-6 col-sm-8 clearfix">
-                    <div class="nav-btn pull-left">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+        <!-- sidebar menu area end -->
+        <!-- main content area start -->
+        <div class="main-content">
+            <!-- header area start -->
+            <div class="header-area">
+                <div class="row align-items-center">
+                    <!-- nav and search button -->
+                    <div class="col-md-6 col-sm-8 clearfix">
+                        <div class="nav-btn pull-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                     </div>
-                </div>
-                <!-- Profile info & task notification -->
-                <div class="col-md-6 col-sm-4 clearfix">
-                    <ul class="notification-area pull-right">
-                        <li id="full-view"><i class="ti-fullscreen"></i></li>
-                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-
-                        <!-- Notification bell -->
-                        {% include 'admin/admin-notification.html' %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- Header area end -->
-        <!-- Page title area start -->
-        <div class="page-title-area">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <div class="breadcrumbs-area clearfix">
-                        <h4 class="page-title pull-left">Employee Section</h4>
-                        <ul class="breadcrumbs pull-left">
-                            <li><a href="{% url 'myadmin:dashboard' %}">Home</a></li>
-                            <li><span>Employee Management</span></li>
+                    <!-- profile info & task notification -->
+                    <div class="col-md-6 col-sm-4 clearfix">
+                        <ul class="notification-area pull-right">
+                            <li id="full-view"><i class="ti-fullscreen"></i></li>
+                            <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                            <!-- Notification bell -->
+                            {% include 'admin/admin-notification.html' %}
                         </ul>
                     </div>
                 </div>
-                <div class="col-sm-6 clearfix">
-                    <div class="user-profile pull-right">
-                        <img class="avatar user-thumb" src="{% static 'images/admin.png' %}" alt="avatar">
-                        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">ADMIN <i class="fa fa-angle-down"></i></h4>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+            </div>
+            <!-- header area end -->
+            <!-- page title area start -->
+            <div class="page-title-area">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <div class="breadcrumbs-area clearfix">
+                            <h4 class="page-title pull-left">Dashboard</h4>
+                            <ul class="breadcrumbs pull-left">
+                                <li><a href="{% url 'myadmin:dashboard' %}">Home</a></li>
+                                <li><span>Admin's Dashboard</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 clearfix">
+                        <div class="user-profile pull-right">
+                            <img class="avatar user-thumb" src="{% static 'images/admin.png' %}" alt="avatar">
+                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown">ADMIN <i class="fa fa-angle-down"></i></h4>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'myadmin:user_logout' %}">Log Out</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <!-- Page title area end -->
         <div class="main-content-inner">
             <!-- Row area start -->

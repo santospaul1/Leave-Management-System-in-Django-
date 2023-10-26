@@ -13,8 +13,8 @@ def employee_login(request):
         password = request.POST.get('password')
 
         try:
-            employee = Employee.objects.get(EmailId=username)
-            if check_password(password, employee.Password):
+            employee = Employee.objects.get(email=username)
+            if check_password(password, employee.password):
                 if not employee.status:
                     messages.error(request, "In-Active Account. Please contact your administrator!")
                 else:
