@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
@@ -15,7 +16,16 @@ def employee_login(request):
         username = request.POST['username']
         password = request.POST['password']
 
+        # Try to authenticate using empcode as the username
         user = authenticate(request, username=username, password=password)
+
+        # If authentication with empcode failed, try with email
+        if user is None:
+            try:
+                user = User.objects.get(email=username)
+                user = authenticate(request, username=user.username, password=password)
+            except User.DoesNotExist:
+                user = None
 
         if user is not None:
             if user.is_active:
@@ -27,6 +37,7 @@ def employee_login(request):
             error = 'Invalid username or password.'
 
     return render(request, 'accounts/employee_login.html', {'error': error})
+
 def recover_password(request):
     empid = request.session.get('empid', None)
 

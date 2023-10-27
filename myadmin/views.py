@@ -27,10 +27,12 @@ def admin_login(request):
     return render(request, 'admin/admin_login.html')
 
 
+
 @login_required
 def user_logout(request):
     logout(request)
     return redirect('myadmin:admin_login')
+@login_required
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('admin_login')
@@ -45,6 +47,7 @@ def dashboard(request):
     }
 
     return render(request, 'admin/dashboard.html')
+@login_required
 def add_admin(request):
     if request.method == 'POST':
         fullname = request.POST.get('fullname')
@@ -60,7 +63,7 @@ def add_admin(request):
 
     return render(request, 'admin/add_admin.html')
 
-
+@login_required
 def add_department(request):
     if request.method == 'POST':
         department_name = request.POST.get('departmentname')
@@ -78,7 +81,7 @@ def add_department(request):
 
 
 
-
+@login_required
 def add_employee(request):
     if request.method == "POST":
         form = EmployeeForm(request.POST)
@@ -124,7 +127,7 @@ def add_employee(request):
 
     return render(request, 'admin/add_employee.html', {'form': form})
 
-
+@login_required
 def add_leave_type(request):
     if request.method == 'POST':
         leavetype = request.POST['leavetype']
@@ -140,10 +143,11 @@ def add_leave_type(request):
         form = LeaveTypeForm()  # Render an empty form
 
     return render(request, 'admin/add_leave_type.html', {'form': form})
-
+@login_required
 def leave_type_list(request):
     leave_types = LeaveType.objects.all()  # Query all leave types
     return render(request, 'admin/leave_type_list.html', {'leave_types': leave_types})
+@login_required
 def approved_leaves(request):
     if not request.user.is_authenticated:
         return redirect('login')  # Redirect to your login page
@@ -168,11 +172,12 @@ def approved_leaves(request):
     }
     return render(request, 'admin/approved_leaves.html', context)
 
-
+@login_required
 def update_employee(request, empid):
     # Implement this view for updating employee details
     employee = get_object_or_404(LeaveType, id=empid)
     pass
+@login_required
 def employee_leave_details(request, leaveid):
     # Implement this view for viewing leave details
     # You can use get_object_or_404 to get the leave by leaveid
@@ -189,6 +194,7 @@ def declined_leaves(request):
         'declined_leaves': declined_leaves
     }
     return render(request, 'admin/declined_leaves.html', context)
+@login_required
 def department(request):
     if request.method == "GET" and 'del' in request.GET:
         department_id = request.GET['del']
@@ -201,6 +207,7 @@ def department(request):
 
     departments = Department.objects.all()
     return render(request, 'admin/department_list.html', {'departments': departments})
+@login_required
 def update_department(request, deptid):
     global department
     if not request.session.get('alogin'):
@@ -236,6 +243,7 @@ def update_department(request, deptid):
     }
 
     return render(request, 'admin/update_department.html', context)
+@login_required
 def update_leave_type(request, lid):
     if not request.session.get('alogin'):
         return redirect('index')  # Redirect to the appropriate URL
@@ -263,7 +271,7 @@ def update_leave_type(request, lid):
     }
 
     return render(request, 'admin/update_leave_type.html', context)
-
+@login_required
 def employees(request):
 
     if not request.user.is_authenticated:
@@ -296,7 +304,7 @@ def employees(request):
     }
 
     return render(request, 'admin/employees.html', context)
-
+@login_required
 def leaves_history(request):
     if not request.user.is_authenticated:
         return redirect('admin_login')  # Redirect to the login page if not authenticated
@@ -304,7 +312,7 @@ def leaves_history(request):
     leave_history = Leave.objects.select_related('employee').order_by('-id')  # Assuming you have a Leave model
     return render(request, 'admin/leaves_history.html', {'leave_history': leave_history})
 
-
+@login_required
 def leave_type_section(request):
     if not request.user.is_authenticated:
         return redirect('admin_login')  # Redirect to the login page if not authenticated
@@ -321,7 +329,7 @@ def leave_type_section(request):
     leave_types = LeaveType.objects.all()
 
     return render(request, 'admin/leave_type_section.html', {'leave_types': leave_types})
-
+@login_required
 def manage_admin(request):
     if request.method == "GET" and 'del' in request.GET:
         id = request.GET.get('del')
@@ -342,7 +350,7 @@ def pending_leaves(request):
     }
     return render(request, 'admin/pending_history.html', context)
 
-
+@login_required
 def employee_update(request, id):
 
   employee = get_object_or_404(Employee, id=id)
@@ -357,7 +365,7 @@ def employee_update(request, id):
 
   return render(request, 'admin/update.html', {'form': form})
 
- # Import your Notification model
+
 
 def approved_app_counter_view(request):
 

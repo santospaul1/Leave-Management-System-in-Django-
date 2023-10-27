@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Employee Leave Management System</title>
+  {% include 'employee/styles.html' %}
     <!-- Include your CSS and other dependencies here -->
 </head>
 <body>
+
+
 <div class="container">
     <h1>Apply For Leave Days</h1>
     <form method="post">
@@ -42,5 +43,7 @@
         <button type="submit" class="btn btn-primary" name="apply">Submit</button>
     </form>
 </div>
+{% include 'employee:footer.html' %}
 </body>
+
 </html>

@@ -7,6 +7,7 @@ class Admin(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     username = models.CharField(max_length=100)
+    CreationDate = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.username
@@ -38,16 +39,16 @@ UN_CHOICES = (
 
 )
 class Employee(models.Model):
-    empcode = models.AutoField(primary_key=True)
+    empcode = models.CharField(max_length=10, primary_key=True)
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=255)
-    #employee_type = models.CharField(
-    #    max_length=10,
-    #    choices=UN_CHOICES,
-    #    default='Non-Union'
-    #)
+    employee_type = models.CharField(
+        max_length=10,
+        choices=UN_CHOICES,
+        default='Non-Union'
+    )
     gender = models.CharField(
         max_length=10,
         choices=GENDER_CHOICES,
@@ -55,7 +56,7 @@ class Employee(models.Model):
     )
     dob = models.DateField(auto_now_add=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    address = models.CharField(max_length=255, default="800100")
+    address = models.CharField(max_length=255, default="80100")
     city = models.CharField(max_length=100, default="Mombasa")
     country = models.CharField(max_length=100)
     mobileno = models.CharField(max_length=10)
