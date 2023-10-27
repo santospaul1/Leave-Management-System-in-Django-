@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
@@ -8,24 +9,24 @@ from accounts.models import Employee
 # Import your Employee model or adjust the import as needed
 
 def employee_login(request):
+    error = None
+
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST['username']
+        password = request.POST['password']
 
-        try:
-            employee = Employee.objects.get(email=username)
-            if check_password(password, employee.password):
-                if not employee.status:
-                    messages.error(request, "In-Active Account. Please contact your administrator!")
-                else:
-                    request.session['emplogin'] = username
-                    return redirect('apply_leave')  # Redirect to the 'employee_leave' URL name or any other URL
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('employee_panel:apply_leave')
             else:
-                messages.error(request, "Sorry, Invalid Details.")
-        except Employee.DoesNotExist:
-            messages.error(request, "Sorry, Invalid Details.")
+                error = 'Your account is inactive.'
+        else:
+            error = 'Invalid username or password.'
 
-    return render(request, 'accounts/employee_login.html')
+    return render(request, 'accounts/employee_login.html', {'error': error})
 def recover_password(request):
     empid = request.session.get('empid', None)
 

@@ -53,6 +53,8 @@ def apply_leave(request):
         todate = request.POST['todate']
         description = request.POST['description']
 
+        leavetype = LeaveType(LeaveType=leavetype, Description=description)
+
         # Calculate date difference
         from_date = datetime.strptime(fromdate, '%Y-%m-%d')  # Use datetime directly
         to_date = datetime.strptime(todate, '%Y-%m-%d')  # Use datetime directly
