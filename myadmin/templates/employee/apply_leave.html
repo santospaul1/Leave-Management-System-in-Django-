@@ -1,48 +1,42 @@
-<!-- apply_leave.html -->
+<!-- Rest of your HTML code -->
+<form method="POST" name="addemp">
+    {% csrf_token %}
+    <div class="card-body">
+        <h4 class="header-title">Employee Leave Form</h4>
+        <p class="text-muted font-14 mb-4">Please fill up the form below.</p>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee Leave Management System</title>
-    {% include 'employee/head_styler.html' %}
-
-    <!-- Include your CSS and other dependencies here -->
-</head>
-<body>
-<div class="container">
-    <h1>Apply For Leave Days</h1>
-    <form method="post">
-        {% csrf_token %}
-        {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
-        {% if msg %}
-        <div class="alert alert-success">{{ msg }}</div>
-        {% endif %}
         <div class="form-group">
-            <label for="leavetype">Leave Type</label>
-            <select class="form-control" id="leavetype" name="leavetype">
-                <option value="" disabled selected>Choose your leave type</option>
+            <label for="fromdate">Starting Date</label>
+            <input class="form-control" type="date" value="{{ today }}" name="fromdate" required>
+        </div>
+
+        <div class="form-group">
+            <label for="todate">End Date</label>
+            <input class="form-control" type="date" value="{{ today }}" name="todate" required>
+        </div>
+
+        <!-- Display the date difference dynamically using JavaScript -->
+        <div class="form-group">
+            <label class="col-form-label">Date Difference</label>
+            <input class="form-control" type="text" id="dateDifference" readonly>
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label">Your Leave Type</label>
+            <select class="custom-select" name="leavetype">
+                <option value="">Click here to select any ...</option>
                 {% for leave_type in leave_types %}
-                <option value="{{ leave_type.LeaveType }}">{{ leave_type.LeaveType }}</option>
+                    <option value="{{ leave_type.LeaveType }}">{{ leave_type.LeaveType }}</option>
                 {% endfor %}
             </select>
         </div>
+
         <div class="form-group">
-            <label for="fromdate">Starting Date</label>
-            <input class="form-control" type="date" name="fromdate" required>
+            <label for="description" class="col-form-label">Describe Your Conditions</label>
+            <textarea class="form-control" name="description" id="description" rows="5"></textarea>
         </div>
-        <div class="form-group">
-            <label for="todate">End Date</label>
-            <input class="form-control" type="date" name="todate" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Describe Your Conditions</label>
-            <textarea class="form-control" name="description" rows="5" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" name="apply">Submit</button>
-    </form>
-</div>
-</body>
-</html>
+
+        <button class="btn btn-primary" name="apply" type="submit">SUBMIT</button>
+    </div>
+</form>
+<!-- Rest of your HTML code -->

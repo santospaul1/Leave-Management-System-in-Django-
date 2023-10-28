@@ -1,5 +1,8 @@
+import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import date
 
 
 class Admin(models.Model):
@@ -87,7 +90,6 @@ STATUS_CHOICES = (
     )
 class Leave(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, to_field='empcode')
-    #EmpId = models.CharField(max_length=10, default='default_value')
     leave_type = models.CharField(max_length=100, default='Annual')
     posting_date = models.DateField(auto_now_add=True)
     status = models.CharField(
@@ -95,6 +97,8 @@ class Leave(models.Model):
         choices=STATUS_CHOICES,
         default='Pending'
     )
+    fromdate = models.DateField(auto_now=True, editable=True)
+    todate = models.DateField(auto_now=True, editable=True)
 
  # You can use your custom User model if you have one
 

@@ -6,3 +6,4 @@ admin.site.register(Admin)
 admin.site.register(Department)
 admin.site.register(Employee)
 admin.site.register(LeaveType)
+

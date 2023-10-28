@@ -56,9 +56,9 @@ def apply_leave(request):
         leavetype = LeaveType(LeaveType=leavetype, Description=description)
 
         # Calculate date difference
-        from_date = datetime.strptime(fromdate, '%Y-%m-%d')  # Use datetime directly
-        to_date = datetime.strptime(todate, '%Y-%m-%d')  # Use datetime directly
-        date_difference = (to_date - from_date).days
+        fromdate = datetime.strptime(fromdate, '%Y-%m-%d')  # Use datetime directly
+        todate = datetime.strptime(todate, '%Y-%m-%d')  # Use datetime directly
+        date_difference = (todate - fromdate).days
 
         if date_difference < 0:
             error = "End Date should be after Starting Date"
