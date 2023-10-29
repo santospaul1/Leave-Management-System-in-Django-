@@ -1,42 +1,29 @@
-<!-- Rest of your HTML code -->
+{% extends 'employee/main.html' %}
+{% block content %}
 <form method="POST" name="addemp">
     {% csrf_token %}
+
     <div class="card-body">
         <h4 class="header-title">Employee Leave Form</h4>
         <p class="text-muted font-14 mb-4">Please fill up the form below.</p>
-
-        <div class="form-group">
-            <label for="fromdate">Starting Date</label>
-            <input class="form-control" type="date" value="{{ today }}" name="fromdate" required>
-        </div>
-
-        <div class="form-group">
-            <label for="todate">End Date</label>
-            <input class="form-control" type="date" value="{{ today }}" name="todate" required>
-        </div>
-
-        <!-- Display the date difference dynamically using JavaScript -->
+        {{ form.leavetype.label_tag }}
+        {{ form.leavetype }}
+        {{ form.fromdate.label_tag }}
+        {{ form.fromdate }}
+        {{ form.todate.label_tag }}
+        {{ form.todate }}
         <div class="form-group">
             <label class="col-form-label">Date Difference</label>
             <input class="form-control" type="text" id="dateDifference" readonly>
         </div>
 
-        <div class="form-group">
-            <label class="col-form-label">Your Leave Type</label>
-            <select class="custom-select" name="leavetype">
-                <option value="">Click here to select any ...</option>
-                {% for leave_type in leave_types %}
-                    <option value="{{ leave_type.LeaveType }}">{{ leave_type.LeaveType }}</option>
-                {% endfor %}
-            </select>
-        </div>
 
-        <div class="form-group">
-            <label for="description" class="col-form-label">Describe Your Conditions</label>
-            <textarea class="form-control" name="description" id="description" rows="5"></textarea>
-        </div>
+        {{ form.description.label_tag }}
+        {{ form.description }}
 
         <button class="btn btn-primary" name="apply" type="submit">SUBMIT</button>
     </div>
 </form>
-<!-- Rest of your HTML code -->
+{% include 'employee/footer.html' %}
+{% endblock content %}
+

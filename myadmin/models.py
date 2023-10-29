@@ -42,11 +42,13 @@ UN_CHOICES = (
 
 )
 class Employee(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     empcode = models.CharField(max_length=10, primary_key=True)
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=255)
+
     employee_type = models.CharField(
         max_length=10,
         choices=UN_CHOICES,
@@ -97,8 +99,12 @@ class Leave(models.Model):
         choices=STATUS_CHOICES,
         default='Pending'
     )
-    fromdate = models.DateField(auto_now=True, editable=True)
-    todate = models.DateField(auto_now=True, editable=True)
+    leavetype = models.CharField(max_length=255, default=None)
+    description = models.TextField(default=None)
+    fromdate = models.DateField(auto_now=True)
+    todate = models.DateField(auto_now=True)
+    isread = models.IntegerField(default=0)
+
 
  # You can use your custom User model if you have one
 

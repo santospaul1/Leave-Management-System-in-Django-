@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.http import Http404
 from django.shortcuts import render
 # Create your views here.
 # views.py
@@ -9,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+from employee_panel.forms import LeaveForm, ProfileUpdateForm
 from myadmin.models import Leave, LeaveType, Employee
 
 
@@ -43,49 +45,51 @@ def leave_history(request):
     }
 
     return render(request, 'employee/leave_history.html', context)
+
+
 def apply_leave(request):
     error = ''
     msg = ''
-    if request.method == "POST":
-        empid = request.user.id
-        leavetype = request.POST['leavetype']
-        fromdate = request.POST['fromdate']
-        todate = request.POST['todate']
-        description = request.POST['description']
-
-        leavetype = LeaveType(LeaveType=leavetype, Description=description)
-
-        # Calculate date difference
-        fromdate = datetime.strptime(fromdate, '%Y-%m-%d')  # Use datetime directly
-        todate = datetime.strptime(todate, '%Y-%m-%d')  # Use datetime directly
-        date_difference = (todate - fromdate).days
-
-        if date_difference < 0:
-            error = "End Date should be after Starting Date"
-        else:
-            leave_type = LeaveType.objects.create(LeaveType=leavetype)
-
-            # Create an Employee instance
-            employee = Employee.objects.create(empcode=empid)
-
-            # Create a Leave instance
-            leave = Leave.objects.create(
-                empid=employee,
-                LeaveType=leave_type,
-                FromDate=fromdate,
-                ToDate=todate,
-                Description=description,
-                status=0,
-                IsRead=0
-            )
-            # Create a Leave object
-
-            leave.save()
-            msg = "Your leave application has been applied. Thank you."
 
     leave_types = LeaveType.objects.all()
 
+    if request.method == "POST":
+        form = LeaveForm(request.POST)
+
+        if form.is_valid():
+            empid = request.user.id
+            leavetype = form.cleaned_data['leavetype']
+            fromdate = form.cleaned_data['fromdate']
+            todate = form.cleaned_data['todate']
+            description = form.cleaned_data['description']
+
+            # Calculate date difference
+            date_difference = (todate - fromdate).days
+
+            if date_difference < 0:
+                error = "End Date should be after Starting Date"
+            else:
+                leave_type, _ = LeaveType.objects.get_or_create(LeaveType=leavetype, Description=description)
+                employee, _ = Employee.objects.get_or_create(empcode=empid)
+
+                leave = Leave.objects.create(
+                    employee=employee,
+                    leave_type=leave_type,
+                    fromdate=fromdate,
+                    todate=todate,
+                    description=description,
+                    status=0,
+                    isread=0
+                )
+                leave.save()
+                msg = "Your leave application has been applied. Thank you."
+        else:
+            error = "Please correct the form errors."
+    else:
+        form = LeaveForm()
+
     context = {
+        'form': form,
         'leave_types': leave_types,
         'error': error,
         'msg': msg
@@ -97,33 +101,22 @@ def logout(request):
     # Clear session data
     request.session.flush()
     return redirect('accounts:employee_login')  # Redirect to the 'index' URL name or any other URL
+@login_required()
 def update_profile(request):
-   # if not request.session.get('emplogin'):
-    #    return redirect('accounts:employee_login')  # Redirect to the 'index' URL name or any other URL
+    try:
+        user_profile = Employee.objects.get(user=request.user)
+    except Employee.DoesNotExist:
+        # Handle the case where the Employee object does not exist for the user
+        raise Http404("Employee profile not found")
 
     if request.method == 'POST':
-        eid = request.session['emplogin']
-        try:
-            employee = Employee.objects.get(email=eid)
-            employee.FirstName = request.POST.get('firstName')
-            employee.LastName = request.POST.get('lastName')
-            employee.Gender = request.POST.get('gender')
-            employee.Dob = request.POST.get('dob')
-            employee.Department = request.POST.get('department')
-            employee.Address = request.POST.get('address')
-            employee.City = request.POST.get('city')
-            employee.Country = request.POST.get('country')
-            employee.Phonenumber = request.POST.get('mobileno')
-            employee.save()
+        form = ProfileUpdateForm(request.POST, instance=user_profile)
+        if form.is_valid():
+            employee = form.save()
             messages.success(request, 'Your record has been updated successfully')
-        except Employee.DoesNotExist:
-            messages.error(request, 'Employee not found')
+        else:
+            messages.error(request, 'Form is not valid')
+    else:
+        form = ProfileUpdateForm(instance=user_profile)
 
-    # Fetch the employee data for pre-filling the form
-    eid = request.session.get('emplogin')
-    try:
-        employee = Employee.objects.get(email=eid)
-    except Employee.DoesNotExist:
-        employee = None
-
-    return render(request, 'employee/update_profile.html', {'employee': employee})
+    return render(request, 'employee/update_profile.html', {'form': form})

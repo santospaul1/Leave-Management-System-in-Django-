@@ -1,0 +1,94 @@
+{% load static %}
+<div id="preloader">
+    <div class="loader"></div>
+</div>
+<!-- preloader area end -->
+<!-- page container area start -->
+<div class="page-container">
+    <!-- sidebar menu area start -->
+    <div class="sidebar-menu">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="{% url 'employee_panel:apply_leave' %}"><img src="{% static 'images/icon/logo.png' %}" alt="logo"></a>
+            </div>
+        </div>
+        <div class="main-menu">
+            <div class="menu-inner">
+                <nav>
+                    <ul class="metismenu" id="menu">
+
+                        <li class="#">
+                            <a href="{% url 'employee_panel:apply_leave' %}" aria-expanded="true"><i class="ti-user"></i><span>Apply Leave</span></a>
+                        </li>
+
+                        <li class="active">
+                            <a href="{% url 'employee_panel:leave_history' %}" aria-expanded="true"><i class="ti-agenda"></i><span>View My Leave History</span></a>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <!-- sidebar menu area end -->
+    <!-- main content area start -->
+    <div class="main-content">
+        <!-- header area start -->
+        <div class="header-area">
+            <div class="row align-items-center">
+                <!-- nav and search button -->
+                <div class="col-md-6 col-sm-8 clearfix">
+                    <div class="nav-btn pull-left">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <!-- profile info & task notification -->
+                <div class="col-md-6 col-sm-4 clearfix">
+                    <ul class="notification-area pull-right">
+                        <li id="full-view"><i class="ti-fullscreen"></i></li>
+                        <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- header area end -->
+        <!-- page title area start -->
+        <div class="page-title-area">
+            <div class="row align-items-center">
+                <div class="col-sm-6">
+                    <div class="breadcrumbs-area clearfix">
+                        <h4 class="page-title pull-left">My Leave History</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 clearfix">
+                    {% include 'employee/update_profile.html' %}
+                </div>
+            </div>
+        </div>
+        <!-- page title area end -->
+        <div class="main-content-inner">
+            <div class="row">
+                <!-- data table start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">Leave History Table</h4>
+                            {% if error %}
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <strong>Info:</strong> {{ error }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% elif msg %}
+                            <div class="alert alert-success alert-dismissible fade show">
+                                <strong>Info:</strong> {{ msg }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            {% endif %}
+                            <div class="data-tables">

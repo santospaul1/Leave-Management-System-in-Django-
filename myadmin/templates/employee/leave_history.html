@@ -1,13 +1,6 @@
 <!-- leave_history.html -->
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee Leave Management System</title>
-    <!-- Include your CSS and other dependencies here -->
-</head>
-<body>
+{% extends 'employee/main.html' %}
+{% block content %}
 
     <div class="container">
         <h1>My Leave History</h1>
@@ -54,5 +47,5 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+{% include 'employee/footer.html' %}
+{% endblock content %}
