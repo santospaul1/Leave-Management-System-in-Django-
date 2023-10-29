@@ -1,6 +1,6 @@
 from django import forms
-from .models import LeaveType, Employee
-from myadmin.models import Department
+from .models import LeaveType, Employee, Department
+
 
 class EmployeeForm(forms.Form):
     empcode = forms.CharField(max_length=50)

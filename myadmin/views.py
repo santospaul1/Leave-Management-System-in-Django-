@@ -2,6 +2,7 @@ import hashlib
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Notification
@@ -65,12 +66,13 @@ def add_admin(request):
 @login_required
 def add_department(request):
     if request.method == 'POST':
-        department_name = request.POST.get('departmentname')
-        department_shortname = request.POST.get('departmentshortname')
-        department_code = request.POST.get('deptcode')
+        department_name = request.POST.get('department_name')
+        department_shortname = request.POST.get('department_shortname')
+        department_code = request.POST.get('department_code')
 
-        department = Department(DepartmentName=department_name, DepartmentShortName=department_shortname,
-                                DepartmentCode=department_code)
+        department = Department(department_name=department_name, department_shortname=department_shortname,
+                                department_code=department_code)
+        Department.objects.filter(Q(department_name__isnull=True) | Q(department_shortname__isnull=True)).delete()
         department.save()
 
         return render(request, 'admin/department_success.html', {'message': 'Department created successfully'})
