@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 import hashlib
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -47,6 +48,7 @@ def dashboard(request):
     }
 
     return render(request, 'admin/dashboard.html')
+
 @login_required
 def add_admin(request):
     if request.method == 'POST':
@@ -56,7 +58,7 @@ def add_admin(request):
         username = request.POST.get('username')
 
         admin = Admin(fullname=fullname, email=email, username=username)
-        admin.set_password(password)  # Set the password securely
+        admin.password = make_password(password)  # Set the password securely
         admin.save()
 
         return render(request, 'admin/success.html', {'message': 'New admin has been added successfully'})
@@ -132,9 +134,9 @@ def add_employee(request):
 def add_leave_type(request):
     if request.method == 'POST':
         leavetype = request.POST['leavetype']
-        description = request.POST['description']
+        description = request.POST['Description']
 
-        leavetype = LeaveType(LeaveType=leavetype, Description=description)
+        leavetype = LeaveType(leavetype=leavetype, Description=description)
         leavetype.save()
 
         # Redirect to a success page or handle success as needed

@@ -21,7 +21,7 @@ class EmployeeForm(forms.Form):
 class LeaveTypeForm(forms.ModelForm):
     class Meta:
         model = LeaveType
-        fields = ['LeaveType', 'Description']
+        fields = ['leavetype', 'Description']
 
 class DepartmentForm(forms.ModelForm):
     class Meta:

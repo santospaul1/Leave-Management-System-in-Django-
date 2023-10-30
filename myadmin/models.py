@@ -76,14 +76,14 @@ class Employee(models.Model):
 
 
 class LeaveType(models.Model):
-    LeaveType = models.CharField(max_length=255)
+    leavetype = models.CharField(max_length=255)
     Description = models.TextField()
 
     PostingDate = models.DateField(auto_now_add=True)
 
 
     def __str__(self):
-        return self.LeaveType
+        return self.leavetype
 
 STATUS_CHOICES = (
         (0, 'Pending'),
