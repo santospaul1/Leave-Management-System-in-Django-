@@ -101,7 +101,8 @@ def add_employee(request):
             city = form.cleaned_data['city']
             country = form.cleaned_data['country']
             mobileno = form.cleaned_data['mobileno']
-            status = 1  # Assuming status is hardcoded to 1
+            status = form.cleaned_data['status']
+
 
 
             employee = Employee(
@@ -118,6 +119,7 @@ def add_employee(request):
                 country=country,
                 mobileno=mobileno,
                 status=status,
+                
             )
 
             employee.save()  # Save the employee to the database

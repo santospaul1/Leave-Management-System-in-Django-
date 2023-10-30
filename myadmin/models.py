@@ -9,7 +9,7 @@ class Admin(models.Model):
     fullname = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
-    username = models.CharField(max_length=100)
+    username = models.CharField(max_length=100, unique=True)
     CreationDate = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -70,9 +70,9 @@ class Employee(models.Model):
         choices=EMP_CHOICES,
         default='Active'
     )
-    PostingDate = models.DateField(auto_now_add=True)
+    CreationDate = models.DateField(auto_now_add=True)
     def __str__(self):
-        return f"{self.empcode} - {self.firstName} {self.lastName} - {self.PostingDate}"
+        return f"{self.empcode} - {self.firstName} {self.lastName}"
 
 
 class LeaveType(models.Model):

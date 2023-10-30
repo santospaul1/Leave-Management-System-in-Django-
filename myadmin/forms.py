@@ -1,5 +1,5 @@
 from django import forms
-from .models import LeaveType, Employee, Department, Admin
+from .models import LeaveType, Employee, Department, Admin, EMP_CHOICES
 
 
 class EmployeeForm(forms.Form):
@@ -15,6 +15,8 @@ class EmployeeForm(forms.Form):
     city = forms.CharField(max_length=100)
     country = forms.CharField(max_length=100)
     mobileno = forms.CharField(max_length=10)
+    status = forms.ChoiceField( choices=EMP_CHOICES)
+
 
 
 

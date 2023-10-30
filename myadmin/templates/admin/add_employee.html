@@ -6,7 +6,7 @@
 <body>
     <div class="container">
         <h1>Add Employee</h1>
-        <form method="post" action="{% url 'add_employee' %}">
+        <form method="post" action="{% url 'myadmin:add_employee' %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Add Employee</button>
