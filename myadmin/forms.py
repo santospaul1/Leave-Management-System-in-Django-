@@ -1,5 +1,5 @@
 from django import forms
-from .models import LeaveType, Employee, Department
+from .models import LeaveType, Employee, Department, Admin
 
 
 class EmployeeForm(forms.Form):
@@ -33,3 +33,7 @@ class EmployeeUpdateForm(forms.ModelForm):
     model = Employee
     fields = ['firstName', 'lastName', 'gender', 'mobileno',
               'address', 'city', 'country', 'department']
+class AdminForm:
+    class meta:
+        model = Admin
+        fields = ['fullname', 'email', 'password', 'username']

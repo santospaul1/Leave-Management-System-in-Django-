@@ -1,52 +1,23 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
+{% extends 'admin/main.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Admin Panel - Employee Leave</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="../assets/images/icon/favicon.ico">
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/css/themify-icons.css">
-    <link rel="stylesheet" href="../assets/css/metisMenu.css">
-    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="../assets/css/slicknav.min.css">
-    <!-- amchart css -->
-    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <!-- others css -->
-    <link rel="stylesheet" href="../assets/css/typography.css">
-    <link rel="stylesheet" href="../assets/css/default-css.css">
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
-    <!-- modernizr css -->
-    <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
+{% block content %}
+    <div class="container">
+        <h1>Add Department</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="fullname">Name:</label>
+            <input type="text" name="fullname" required><br>
 
-<body>
-    <div class="page-container">
-        <div class="main-content">
-            <div class="page-title-area">
-                <h4 class="page-title">Success Message</h4>
-            </div>
-            <div class="main-content-inner">
-                <div class="row">
-                    <div class="col-lg-6 col-ml-12">
-                        <div class="row">
-                            <div class="col-12 mt-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <p class="text-success">New admin has been added successfully</p>
-                                        <a href="{% url 'myadmin:add_admin' %}" class="btn btn-primary">Add Another Admin</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required><br>
+
+            <label for="username">UserName:</label>
+            <input type="text" name="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required><br>
+
+            <button type="submit" name="add">Add</button>
+        </form>
     </div>
-</body>
-</html>
+{% endblock content %}

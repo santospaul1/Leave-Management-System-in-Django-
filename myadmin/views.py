@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Notification
 from django.contrib import messages
-from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm
+from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm, AdminForm
 from .models import Admin, Department, Employee, LeaveType, Leave
 
 # Rest of your views...
