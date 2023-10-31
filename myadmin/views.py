@@ -1,8 +1,11 @@
+import email
+
 from django.contrib.auth.hashers import make_password
 import hashlib
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -83,55 +86,28 @@ def add_department(request):
 
 
 
-
-@login_required
 def add_employee(request):
     if request.method == "POST":
         form = EmployeeForm(request.POST)
         if form.is_valid():
-            empid = form.cleaned_data['empcode']
-            fname = form.cleaned_data['firstName']
-            lname = form.cleaned_data['lastName']
-            email = form.cleaned_data['email']
-            password = form.cleaned_data['password']
-            gender = form.cleaned_data['gender']
-            dob = form.cleaned_data['dob']
-            department = form.cleaned_data['department']
-            address = form.cleaned_data['address']
-            city = form.cleaned_data['city']
-            country = form.cleaned_data['country']
-            mobileno = form.cleaned_data['mobileno']
-            status = form.cleaned_data['status']
-
-
-
-            employee = Employee(
-                empcode=empid,
-                firstName=fname,
-                lastName=lname,
-                email=email,
-                password=password,
-                gender=gender,
-                dob=dob,
-                department=department,
-                address=address,
-                city=city,
-                country=country,
-                mobileno=mobileno,
-                status=status,
-                
+            # Create a new User and Employee instance
+            user = User.objects.create_user(
+                username=form.cleaned_data['email'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password']
             )
 
-            employee.save()  # Save the employee to the database
+            employee = form.save(commit=False)  # Create an Employee instance but don't save it yet
+            employee.user = user  # Associate the user with the employee
+            employee.save()  # Now save the employee to the database
 
             # Redirect to a success page or handle success as needed
-            return render(request, 'admin/employee_success.html')
+            return render(request, 'admin/success.html')
 
     else:
-        form = EmployeeForm()  # Render an empty form
+        form = EmployeeForm()
 
     return render(request, 'admin/add_employee.html', {'form': form})
-
 @login_required
 def add_leave_type(request):
     if request.method == 'POST':
@@ -251,7 +227,7 @@ def update_department(request, deptid):
 @login_required
 def update_leave_type(request, lid):
     if not request.session.get('alogin'):
-        return redirect('index')  # Redirect to the appropriate URL
+        return redirect('myadmin:admin_login')  # Redirect to the appropriate URL
 
     if request.method == 'POST':
         form = LeaveTypeForm(request.POST)
@@ -390,13 +366,13 @@ def declined_leaves_counter(request):
 
 
 def count_departments(request):
-    department_count = department.objects.count()
+    department_count = Department.objects.count()
 
     return render(request, 'admin/dept-counter.html', {'department_count': department_count})
 
 
 def count_employees(request):
-    employee_count = employees.objects.count()
+    employee_count = Employee.objects.count()
 
     return render(request, 'admin/emp-counter.html', {'employee_count': employee_count})
 
