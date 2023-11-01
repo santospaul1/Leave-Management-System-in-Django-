@@ -21,10 +21,10 @@
                 {% for leave in leave_history %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ leave.LeaveType }}</td>
-                    <td>{{ leave.Description }}</td>
-                    <td>{{ leave.FromDate }}</td>
-                    <td>{{ leave.ToDate }}</td>
+                    <td>{{ leave.leavetype }}</td>
+                    <td>{{ leave.description }}</td>
+                    <td>{{ leave.fromdate }}</td>
+                    <td>{{ leave.todate }}</td>
                     <td>{{ leave.PostingDate }}</td>
                     <td>
                         {% if leave.AdminRemark %}

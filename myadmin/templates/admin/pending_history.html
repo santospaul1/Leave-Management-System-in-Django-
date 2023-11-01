@@ -34,9 +34,9 @@
                                         {% for leave in leaves %}
                                         <tr>
                                             <td>{{ forloop.counter }}</td>
-                                            <td>{{ leave.EmpId }}</td>
-                                            <td>{{ leave.firstName }} {{ leave.lastName }}</td>
-                                            <td>{{ leave.LeaveType }}</td>
+                                            <td>{{ leave.empid }}</td>
+                                            <td>{{ employee.firstName }} {{ leave.lastName }}</td>
+                                            <td>{{ leave.leavetype }}</td>
                                             <td>{{ leave.PostingDate }}</td>
                                             <td>
                                                 {% if leave.status == 1 %}
@@ -46,9 +46,7 @@
                                                 {% else %}
                                                 <span style="color: blue">Pending <i class="fa fa-spinner"></i></span>
                                                 {% endif %}
-                                            </td>
-                                            <td><a href="{% url 'employee_leave_details' leave.id %}" class="btn btn-secondary btn-sm">View Details</a></td>
-                                        </tr>
+
                                         {% endfor %}
                                     </tbody>
                                 </table>
