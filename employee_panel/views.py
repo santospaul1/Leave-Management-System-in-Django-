@@ -1,9 +1,6 @@
 from datetime import datetime
 
 from django.http import Http404
-from django.shortcuts import render
-# Create your views here.
-# views.py
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -11,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 
 from employee_panel.forms import LeaveForm, ProfileUpdateForm
-from myadmin.models import Leave, LeaveType, Employee
+from myadmin.models import Leave, LeaveType, Employee, Department
 
 
 @login_required
@@ -68,13 +65,15 @@ def apply_leave(request):
 
             if date_difference < 0:
                 error = "End Date should be after Starting Date"
+
             else:
-                leave_type, _ = LeaveType.objects.get_or_create(LeaveType=leavetype, Description=description)
-                employee, _ = Employee.objects.get_or_create(empcode=empid)
+                department, _ = Department.objects.get_or_create(department_name="Default Department")
+                leave_type, _ = LeaveType.objects.get_or_create(leavetype=leavetype, Description=description)
+                employee, _ = Employee.objects.get_or_create(empcode=empid, user_id=empid, department_id=1)
 
                 leave = Leave.objects.create(
                     employee=employee,
-                    leave_type=leave_type,
+                    leavetype=leavetype,
                     fromdate=fromdate,
                     todate=todate,
                     description=description,

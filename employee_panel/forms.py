@@ -10,7 +10,7 @@ class LeaveForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(LeaveForm, self).__init__(*args, **kwargs)
-        leave_types = LeaveType.objects.all().values_list('LeaveType', 'LeaveType')
+        leave_types = LeaveType.objects.all().values_list('leavetype', 'leavetype')
         self.fields['leavetype'] = forms.ChoiceField(choices=[('', 'Select Leave Type')] + list(leave_types), required=True)
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
