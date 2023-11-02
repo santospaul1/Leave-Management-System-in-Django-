@@ -102,8 +102,8 @@ class Leave(models.Model):
     )
     leavetype = models.CharField(max_length=255, default=None)
     description = models.TextField(default=None)
-    fromdate = models.DateField(auto_now=True)
-    todate = models.DateField(auto_now=True)
+    fromdate = models.DateField( default=None)
+    todate = models.DateField( default=None)
     isread = models.IntegerField(default=0)
 
 
