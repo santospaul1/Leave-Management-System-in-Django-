@@ -384,6 +384,6 @@ def count_leave_types(request):
 
 
 def count_pending_leaves(request):
-    pending_leave_count = LeaveType.objects.filter(Status=0).count()
+    pending_leave_count = Leave.objects.filter(status=0).count()
 
     return render(request, 'admin/pendingapp-counter.html', {'pending_leave_count': pending_leave_count})

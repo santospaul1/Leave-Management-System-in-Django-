@@ -59,12 +59,14 @@ def apply_leave(request):
             todate = form.cleaned_data['todate']
             description = form.cleaned_data['description']
 
+
             # Calculate date difference
             date_difference = (todate - fromdate).days
 
             if date_difference < 0:
                 error = "End Date should be after Starting Date"
             else:
+
                 # Create the Leave instance using the User instance
                 leave = Leave.objects.create(
                     employee=user,

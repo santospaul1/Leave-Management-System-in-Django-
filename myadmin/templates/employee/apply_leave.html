@@ -1,11 +1,14 @@
 {% extends 'employee/main.html' %}
 {% block content %}
+    <h1>Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
 <form method="POST" name="addemp">
     {% csrf_token %}
 
     <div class="card-body">
         <h4 class="header-title">Employee Leave Form</h4>
         <p class="text-muted font-14 mb-4">Please fill up the form below.</p>
+
+
         {{ form.leavetype.label_tag }}
         {{ form.leavetype }}
         {{ form.fromdate.label_tag }}

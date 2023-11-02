@@ -34,10 +34,10 @@
                                         {% for leave in leaves %}
                                         <tr>
                                             <td>{{ forloop.counter }}</td>
-                                            <td>{{ leave.empid }}</td>
-                                            <td>{{ employee.firstName }} {{ leave.lastName }}</td>
+                                            <td>{{ leave.employee }}</td>
+                                            <td>{{ employee.firstName }} {{ leave.last_name }}</td>
                                             <td>{{ leave.leavetype }}</td>
-                                            <td>{{ leave.PostingDate }}</td>
+                                            <td>{{ leave.posting_date }}</td>
                                             <td>
                                                 {% if leave.status == 1 %}
                                                 <span style="color: #04fd04">Approved <i class="fa fa-check-square-o"></i></span>
