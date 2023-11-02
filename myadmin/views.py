@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Notification
 from django.contrib import messages
-from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm, AdminForm
+from .forms import EmployeeForm, LeaveTypeForm, EmployeeUpdateForm, AdminForm, LeaveActionForm
 from .models import Admin, Department, Employee, LeaveType, Leave
 
 # Rest of your views...
@@ -159,12 +159,36 @@ def update_employee(request, empid):
     employee = get_object_or_404(LeaveType, id=empid)
     pass
 @login_required
-def employee_leave_details(request, leaveid):
-    # Implement this view for viewing leave details
-    # You can use get_object_or_404 to get the leave by leaveid
-    leave = get_object_or_404(LeaveType, id=leaveid)
-    # Add any code to display leave details here
-    pass
+def employee_leave_details(request, leave_id):
+    if not request.user.is_authenticated:
+        return redirect('index')  # Redirect to the login page if the user is not authenticated
+
+    error = ''
+    msg = ''
+    leave = Leave.objects.get(pk=leave_id)
+
+    if request.method == "POST":
+        form = LeaveActionForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description']
+            status = form.cleaned_data['status']
+            leave.admin_remark = description
+            leave.status = status
+            leave.save()
+            msg = "Leave updated Successfully"
+        else:
+            error = "Please correct the form errors."
+    else:
+        form = LeaveActionForm(initial={'status': leave.status})
+
+    context = {
+        'form': form,
+        'leave': leave,
+        'error': error,
+        'msg': msg,
+    }
+
+    return render(request, 'admin/leave_details.html', context)
 
 
 

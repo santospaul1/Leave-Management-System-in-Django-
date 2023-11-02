@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Q
 from django.http import Http404
 
 from django.shortcuts import render, redirect
@@ -77,6 +78,7 @@ def apply_leave(request):
                     status=0,
                     isread=0
                 )
+                Leave.objects.filter(Q(fromdate__isnull=True) | Q(todate__isnull=True)).delete()
                 leave.save()
                 msg = "Your leave application has been applied. Thank you."
         else:

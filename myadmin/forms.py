@@ -48,3 +48,13 @@ class AdminForm:
     class meta:
         model = Admin
         fields = ['fullname', 'email', 'password', 'username']
+class LeaveActionForm(forms.Form):
+    status = forms.ChoiceField(
+        choices=((1, 'Approve'), (2, 'Decline')),
+        required=True,
+        widget=forms.Select(attrs={'class': 'custom-select'}),
+    )
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Description', 'maxlength': 500}),
+        required=True,
+    )
