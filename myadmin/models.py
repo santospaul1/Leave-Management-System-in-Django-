@@ -91,7 +91,7 @@ STATUS_CHOICES = (
         (2, 'Declined')
     )
 class Leave(models.Model):
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, to_field='empcode')
+    employee = models.ForeignKey(User, on_delete=models.CASCADE)
     leave_type = models.CharField(max_length=100, default='Annual')
     posting_date = models.DateField(auto_now_add=True)
     status = models.CharField(

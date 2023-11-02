@@ -44,17 +44,16 @@ def leave_history(request):
     return render(request, 'employee/leave_history.html', context)
 
 
+@login_required
 def apply_leave(request):
     error = ''
     msg = ''
-
-    leave_types = LeaveType.objects.all()
 
     if request.method == "POST":
         form = LeaveForm(request.POST)
 
         if form.is_valid():
-            empid = request.user.id
+            user = request.user  # Get the currently logged-in User instance
             leavetype = form.cleaned_data['leavetype']
             fromdate = form.cleaned_data['fromdate']
             todate = form.cleaned_data['todate']
@@ -65,14 +64,10 @@ def apply_leave(request):
 
             if date_difference < 0:
                 error = "End Date should be after Starting Date"
-
             else:
-                department, _ = Department.objects.get_or_create(department_name="Default Department")
-                leave_type, _ = LeaveType.objects.get_or_create(leavetype=leavetype, Description=description)
-                employee, _ = Employee.objects.get_or_create(empcode=empid, user_id=empid, department_id=1)
-
+                # Create the Leave instance using the User instance
                 leave = Leave.objects.create(
-                    employee=employee,
+                    employee=user,
                     leavetype=leavetype,
                     fromdate=fromdate,
                     todate=todate,
@@ -89,7 +84,6 @@ def apply_leave(request):
 
     context = {
         'form': form,
-        'leave_types': leave_types,
         'error': error,
         'msg': msg
     }
