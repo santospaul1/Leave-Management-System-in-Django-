@@ -33,11 +33,11 @@
                                     <tbody>
                                         {% for leave in leaves %}
                                         <tr>
-                                            <td>{{ forloop.counter }}</td>
-                                            <td>{{ leave.employee }}</td>
-                                            <td>{{ employee.user }} {{ leave.last_name }}</td>
-                                            <td>{{ leave.leavetype }}</td>
-                                            <td>{{ leave.posting_date }}</td>
+                                          <td>{{ forloop.counter }}</td>
+                                                <td>{{ leave.employee }}</td>
+                                                <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+                                                <td>{{ leave.leave_type }}</td>
+                                                <td>{{ leave.posting_date }}</td>
                                             <td>
                                                 {% if leave.status == 1 %}
                                                 <span style="color: #04fd04">Approved <i class="fa fa-check-square-o"></i></span>

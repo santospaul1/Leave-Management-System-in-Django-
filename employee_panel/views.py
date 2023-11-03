@@ -37,9 +37,9 @@ def change_password(request):
 def leave_history(request):
     user = request.user
     leave_history = Leave.objects.filter(employee=user.id)
-
     context = {
         'leave_history': leave_history
+
     }
 
     return render(request, 'employee/leave_history.html', context)
