@@ -13,5 +13,6 @@ urlpatterns = [
     path('apply_leave/', apply_leave, name='apply_leave'),
     path('update_profile/', views.update_profile, name='update_profile'),
     path('logout/', views.logout, name='logout'),
+
     # Add other URL patterns as needed
 ]

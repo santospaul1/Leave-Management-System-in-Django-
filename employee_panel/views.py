@@ -64,9 +64,11 @@ def apply_leave(request):
             # Calculate date difference
             date_difference = (todate - fromdate).days
 
+
             if date_difference < 0:
                 error = "End Date should be after Starting Date"
             else:
+                # Leave.objects.filter(Q(fromdate__isnull=True) | Q(todate__isnull=True)).delete()
 
                 # Create the Leave instance using the User instance
                 leave = Leave.objects.create(
@@ -78,9 +80,10 @@ def apply_leave(request):
                     status=0,
                     isread=0
                 )
-                Leave.objects.filter(Q(fromdate__isnull=True) | Q(todate__isnull=True)).delete()
+
                 leave.save()
                 msg = "Your leave application has been applied. Thank you."
+
         else:
             error = "Please correct the form errors."
     else:
@@ -93,6 +96,7 @@ def apply_leave(request):
     }
 
     return render(request, 'employee/apply_leave.html', context)
+
 @login_required()
 def logout(request):
     # Clear session data
