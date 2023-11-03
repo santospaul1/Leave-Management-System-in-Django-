@@ -161,7 +161,7 @@ def update_employee(request, empid):
 @login_required
 def employee_leave_details(request, leave_id):
     if not request.user.is_authenticated:
-        return redirect('index')  # Redirect to the login page if the user is not authenticated
+        return redirect('myadmin:admin_login')  # Redirect to the login page if the user is not authenticated
 
     error = ''
     msg = ''
