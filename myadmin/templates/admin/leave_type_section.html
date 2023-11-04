@@ -64,8 +64,10 @@
                                             <td>{{ leave_type.Description }}</td>
                                             <td>{{ leave_type.PostingDate }}</td>
                                             <td>
-                                                <a href="update_leave_type?id={{ leave_type.id }}"><i class="fa fa-edit" style="color:green"></i></a>
-                                                <a href="leave-type-section?del={{ leave_type.id }}" onclick="return confirm('Do you want to delete?');"><i class="fa fa-trash" style="color:red"></i></a>
+                                                <a href="{% url 'myadmin:update_leave_type' lid=leave_type.id %}">
+    <i class="fa fa-edit" style="color:green"></i>
+</a>
+                                                <a href="{% url 'myadmin:leave_deleter' %}?del={{ leave_type.id }}" onclick="return confirm('Do you want to delete?');"><i class="fa fa-trash" style="color:red"></i></a>
                                             </td>
                                         </tr>
                                     {% endfor %}

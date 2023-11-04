@@ -250,15 +250,17 @@ def update_department(request, deptid):
     return render(request, 'admin/update_department.html', context)
 @login_required
 def update_leave_type(request, lid):
-    if not request.session.get('alogin'):
-        return redirect('myadmin:admin_login')  # Redirect to the appropriate URL
+    global msg
+    if not request.user.is_authenticated:
+        return redirect('admin_login')  # Redirect to the appropriate URL
 
     if request.method == 'POST':
+
         form = LeaveTypeForm(request.POST)
         if form.is_valid():
-            leave_type = LeaveType.objects.get(pk=lid)
+            leave_type = LeaveType.objects.get(id=lid)
             leave_type.LeaveType = form.cleaned_data['leavetype']
-            leave_type.Description = form.cleaned_data['description']
+            leave_type.Description = form.cleaned_data['Description']
             leave_type.save()
 
             msg = "Leave type updated successfully"
@@ -266,8 +268,8 @@ def update_leave_type(request, lid):
     else:
         leave_type = LeaveType.objects.get(pk=lid)
         form = LeaveTypeForm(initial={
-            'leavetype': leave_type.LeaveType,
-            'description': leave_type.Description
+            'leavetype': leave_type.leavetype,
+            'Description': leave_type.Description
         })
 
     context = {

@@ -9,21 +9,15 @@
     <!-- Add your HTML body content here -->
     <form method="POST">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="id_leavetype">Leave Type</label>
-            {{ form.leavetype }}
-        </div>
-        <div class="form-group">
-            <label for="id_description">Short Description</label>
-            {{ form.description }}
-        </div>
+        {{form.as_p}}
+
         <button type="submit">MAKE CHANGES</button>
     </form>
     {% if msg %}
         <div class="alert alert-success">
             <strong>Info:</strong> {{ msg }}
         </div>
-    {% endif }
+    {% endif %}
 </body>
 
 </html>

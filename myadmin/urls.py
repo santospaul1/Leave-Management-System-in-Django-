@@ -32,6 +32,7 @@ urlpatterns = [
     path('count_employees', views.count_employees, name='count_employees'),
     path('count_leave_types', views.count_leave_types, name='count_leave_types'),
     path('count_pending_leaves', views.count_pending_leaves, name='count_pending_leaves'),
+    path('leave_deleter/',views.leave_type_section, name='leave_deleter'),
 
     # Add other URL patterns for your views
 ]
