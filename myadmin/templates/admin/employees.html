@@ -29,12 +29,14 @@
       <td>{{ employee.CreationDate }}</td>
       <td>{{ employee.status }}</td>
       <td>
+          <button type="button" class="btn btn-sm btn-dark">View</button>
+          <button type="button" class="btn btn-sm btn-primary">Edit</button>
         {% if employee.status == 'Active' %}
-        <button type="button" class="btn btn-sm btn-success" onclick="return confirm('Are you sure you want to inactive this employee?');">Inactive</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="return confirm('Are you sure you want to inactive this employee?');">Deactivate</button>
         {% elif employee.status == 'Inactive' %}
-        <button type="button" class="btn btn-sm btn-primary" onclick="return confirm('Are you sure you want to active this employee?');">Activate</button>
+        <button type="button" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to active this employee?');">Activate</button>
         {% endif %}
-         <button type="button" class="btn btn-sm">Edit</button>
+
       </td>
     </tr>
     {% endfor %}
