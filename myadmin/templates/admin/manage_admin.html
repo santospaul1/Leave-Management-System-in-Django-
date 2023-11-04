@@ -16,8 +16,8 @@
                                         <thead class="text-capitalize">
                                             <tr>
                                                 <th>#</th>
-                                                <th>Name</th>
                                                 <th>Username</th>
+                                                <th>Name</th>
                                                 <th>Email ID</th>
                                                 <th>Account Created On</th>
                                                 <th></th>
@@ -27,8 +27,8 @@
                                             {% for admin in admins %}
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
+                                                <td>{{ admin.username }}</td>
                                                 <td>{{ admin.fullname }}</td>
-                                                <td>{{ admin.UserName }}</td>
                                                 <td>{{ admin.email }}</td>
                                                 <td>{{ admin.CreationDate }}</td>
                                                 <td>

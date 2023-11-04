@@ -1,9 +1,6 @@
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-    <!-- Add your head content here -->
-</head>
-<body>
+{% extends 'admin/main.html' %}
+
+{% block content %}
     <div class="container">
         <h1>Add Employee</h1>
         <form method="post" action="{% url 'myadmin:add_employee' %}">
@@ -12,5 +9,4 @@
             <button type="submit">Add Employee</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock content %}
