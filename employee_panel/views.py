@@ -68,9 +68,7 @@ def apply_leave(request):
             if date_difference < 0:
                 error = "End Date should be after Starting Date"
             else:
-                # Leave.objects.filter(Q(fromdate__isnull=True) | Q(todate__isnull=True)).delete()
 
-                # Create the Leave instance using the User instance
                 leave = Leave.objects.create(
                     employee=user,
                     leavetype=leavetype,
