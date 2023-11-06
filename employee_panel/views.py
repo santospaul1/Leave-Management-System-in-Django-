@@ -31,7 +31,7 @@ def change_password(request):
         else:
             messages.error(request, 'Your current password is wrong.')
 
-    return render(request, 'accounts/change_password.html')
+    return render(request, 'accounts/../myadmin/templates/employee/change_password.html')
 
 @login_required
 def leave_history(request):

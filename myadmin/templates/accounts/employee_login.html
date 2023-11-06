@@ -31,25 +31,35 @@
             <div class="login-box ptb--100">
                 <form method="POST" name="signin">
                     <div class="login-form-head">
-                        <h4>Employee Login Panel</h4>
-                        <p>Employee Leave Management System</p>
+                        <h4 class="text-center">Employee Login Panel</h4>
+                        <p class="text-center" style="margin-top: 30px;">Employee Leave Management System</p>
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="errorWrap"><strong>Error</strong>: {{ message }}</div>
+                                <div class="alert alert-danger">{{ message }}</div>
                             {% endfor %}
                         {% endif %}
                     </div>
+                <script>
+    // Add JavaScript to clear the error message on page load
+    window.addEventListener('load', function() {
+        // Select the error message element and remove it
+        var errorMessage = document.querySelector('.alert.alert-danger');
+        if (errorMessage) {
+            errorMessage.remove();
+        }
+    });
+</script>
                     <div class="login-form-body">
-                        <div class="form-gp">
+                        <div class="form-group" style="margin-top: -30px;">
                             <label for="username">Email address</label>
-                            <input type="text" id="username" name="username" autocomplete="on" required>
-                            <i class="ti-email"></i>
+                            <input type="text" id="username" name="username" class="form-control" autocomplete="on" required>
+
                             <div class="text-danger"></div>
                         </div>
-                        <div class="form-gp">
+                        <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" id="password" name="password" autocomplete="off" required>
-                            <i class="ti-lock"></i>
+                            <input type="password" id="password" name="password" class="form-control" autocomplete="off" required>
+
                             <div class="text-danger"></div>
                         </div>
                         <div class="row mb-4 rmber-area">
@@ -59,13 +69,13 @@
                                     <label class="custom-control-label" for="customControlAutosizing">Remember Me</label>
                                 </div>
                             </div>
-                            <div class="col-6 text right">
+                            <div class="col-6 text-right">
                                 <a href="{% url 'accounts:recover_password' %}">Forgot Password?</a>
                             </div>
                         </div>
                         <div class="submit-btn-area">
                             {% csrf_token %}  {# Include the CSRF token here #}
-                            <button id="form_submit" type="submit" name="signin">Login <i class="ti-arrow-right"></i></button>
+                            <button id="form_submit" type="submit" name="signin" class="btn btn-primary btn-block">Login <i class="ti-arrow-right"></i></button>
                         </div>
                         <div class="form-footer text-center mt-5">
                             <p class="text-muted"><a href="{% url 'myadmin:admin_login' %}">Go to Admin Panel</a></p>
