@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.db.models import Q
 def employee_login(request):
+
     error = None
 
     if request.method == 'POST':
@@ -32,7 +33,7 @@ def employee_login(request):
 
         if user is not None:
             if user.is_active:
-                if employee.status == 'Active':
+                if user.employee.status == 'Active':
                     login(request, user)
                     return redirect('employee_panel:apply_leave')
                 else:
