@@ -46,6 +46,7 @@
                                                 <span style="color: red">Declined <i class="fa fa-cross"></i></span>
                                                 {% else %}
                                                 <span style="color: blue">Pending <i class="fa fa-spinner"></i></span>
+                                                    {{ leave.status }}
                                                 {% endif %}
                                             </td>
                                             <td><a href="{% url 'myadmin:employee_leave_details' leave.id %}" class="btn btn-secondary btn-sm">View Details</a></td>
