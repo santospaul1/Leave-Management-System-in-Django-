@@ -6,6 +6,7 @@ from datetime import date
 
 
 class Admin(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     fullname = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)

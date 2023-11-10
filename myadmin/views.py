@@ -60,9 +60,20 @@ def add_admin(request):
         password = request.POST.get('password')
         username = request.POST.get('username')
 
-        admin = Admin(fullname=fullname, email=email, username=username)
-        admin.password = make_password(password)  # Set the password securely
-        admin.save()
+        # Create a new User instance
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        # Create a new Admin instance and associate it with the created user
+        admin = Admin.objects.create(
+            user=user,
+            fullname=fullname,
+            email=email,
+            username=username
+        )
 
         return render(request, 'admin/success.html', {'message': 'New admin has been added successfully'})
 
