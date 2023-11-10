@@ -171,15 +171,15 @@ def employee_leave_details(request, leave_id):
         form = LeaveActionForm(request.POST)
         if form.is_valid():
             description = form.cleaned_data['description']
-            status = form.cleaned_data['status']
+            action = form.cleaned_data['action']
             leave.admin_remark = description
-            leave.status = status
+            leave.status = action  # Renamed from status to action
             leave.save()
             msg = "Leave updated Successfully"
         else:
             error = "Please correct the form errors."
     else:
-        form = LeaveActionForm(initial={'status': leave.status})
+        form = LeaveActionForm(initial={'action': leave.status})  # Renamed from status to action
 
     context = {
         'form': form,
@@ -189,7 +189,6 @@ def employee_leave_details(request, leave_id):
     }
 
     return render(request, 'admin/leave_details.html', context)
-
 
 
 @login_required

@@ -49,7 +49,7 @@ class AdminForm:
         model = Admin
         fields = ['fullname', 'email', 'password', 'username']
 class LeaveActionForm(forms.Form):
-    status = forms.ChoiceField(
+    action = forms.ChoiceField(
         choices=((1, 'Approve'), (2, 'Decline')),
         required=True,
         widget=forms.Select(attrs={'class': 'custom-select'}),
