@@ -42,15 +42,26 @@ def dashboard(request):
         return redirect('admin_login')
 
     leaves = Leave.objects.order_by('-id')[:7]
+    pending_leave_count = Leave.objects.filter(status=0).count()
     notifications = Notification.objects.filter(user=request.user, is_read=False)[:5]
-
+    leave_type_count = LeaveType.objects.count()
+    employee_count = Employee.objects.count()
+    department_count = Department.objects.count()
+    leavetype_count = Leave.objects.filter(status=2).count()
+    leavtypcount = Leave.objects.filter(status=1).count()
     context = {
         'page': 'dashboard',
         'leaves': leaves,
         'notifications': notifications,
+        'pending_leave_count':pending_leave_count,
+        'leave_type_count':leave_type_count,
+        'employee_count':employee_count,
+        'department_count':department_count,
+        'leavetype_count':leavetype_count,
+        'leavtypcount':leavtypcount
     }
 
-    return render(request, 'admin/dashboard.html')
+    return render(request, 'admin/dashboard.html', context)
 
 @login_required
 def add_admin(request):
@@ -362,6 +373,7 @@ def manage_admin(request):
 @login_required
 def pending_leaves(request):
     leaves = Leave.objects.filter(status=0).order_by('-id')
+
     context = {
         'leaves': leaves
     }
@@ -386,7 +398,7 @@ def employee_update(request, id):
 
 def approved_app_counter_view(request):
 
-    leavtypcount = LeaveType.objects.count()
+    leavtypcount = Leave.objects.filter(status=1).count()
 
     context = {
         'leavtypcount': leavtypcount,
@@ -396,7 +408,7 @@ def approved_app_counter_view(request):
 
 
 def declined_leaves_counter(request):
-    leavetype_count = LeaveType.objects.filter(status='2').count()
+    leavetype_count = Leave.objects.filter(status=2).count()
 
     return render(request, 'admin/declineapp-counter.html', {'leavetype_count': leavetype_count})
 
