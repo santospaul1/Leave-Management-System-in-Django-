@@ -43,6 +43,7 @@ UN_CHOICES = (
 
 )
 class Employee(models.Model):
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     empcode = models.CharField(max_length=10, primary_key=True)
     firstName = models.CharField(max_length=100)

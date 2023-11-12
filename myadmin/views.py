@@ -86,7 +86,7 @@ def add_admin(request):
             username=username
         )
 
-        return render(request, 'admin/success.html', {'message': 'New admin has been added successfully'})
+        return render(request, 'admin/add_admin_sucess.html', {'message': 'New admin has been added successfully'})
 
     return render(request, 'admin/add_admin.html')
 

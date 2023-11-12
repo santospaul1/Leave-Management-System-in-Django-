@@ -29,13 +29,17 @@
                     <td>{{ leave.todate }}</td>
                     <td>{{ leave.posting_date }}</td>
                     <td>
+
                         {% if leave.AdminRemark %}
-                            {{ leave.AdminRemark }} at {{ leave.AdminRemarkDate }}
+                            {{ leave.AdminRemark }} at ({{ leave.AdminRemarkDate }})
                         {% else %}
                             Pending
                         {% endif %}
                     </td>
                     <td>
+                        <!-- Add debugging statements -->
+
+
                         {% if leave.status == 1 %}
                             <span class="text-success">Approved</span>
                         {% elif leave.status == 2 %}
@@ -43,6 +47,7 @@
                         {% else %}
                             <span class="text-primary">Pending</span>
                         {% endif %}
+
                     </td>
                 </tr>
                 {% endfor %}

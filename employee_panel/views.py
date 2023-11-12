@@ -37,7 +37,9 @@ def change_password(request):
 def leave_history(request):
     user = request.user
     leave_history = Leave.objects.filter(employee=user.id)
+    status = Leave.status
     context = {
+        'status':status,
         'leave_history': leave_history
 
     }
@@ -60,7 +62,7 @@ def apply_leave(request):
             todate = form.cleaned_data['todate']
             description = form.cleaned_data['description']
 
-
+            #employee = Employee.objects.all(empcode=id)
             # Calculate date difference
             date_difference = (todate - fromdate).days
 
