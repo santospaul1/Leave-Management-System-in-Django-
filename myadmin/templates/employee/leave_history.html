@@ -30,8 +30,8 @@
                     <td>{{ leave.posting_date }}</td>
                     <td>
 
-                        {% if leave.AdminRemark %}
-                            {{ leave.AdminRemark }} at ({{ leave.AdminRemarkDate }})
+                        {% if leave.admin_remark %}
+                            {{ leave.admin_remark }}
                         {% else %}
                             Pending
                         {% endif %}
@@ -39,14 +39,13 @@
                     <td>
                         <!-- Add debugging statements -->
 
-
-                        {% if leave.status == 1 %}
-                            <span class="text-success">Approved</span>
-                        {% elif leave.status == 2 %}
-                            <span class="text-danger">Not Approved</span>
-                        {% else %}
-                            <span class="text-primary">Pending</span>
-                        {% endif %}
+                                                    {% if leave.status == '1' %}
+                                                        Approved <i class="fa fa-check-square-o"></i></span>
+                                                    {% elif leave.status == '2' %}
+                                                        <span style="color: red">Declined <i class="fa fa-times"></i></span>
+                                                    {% else %}
+                                                        <span style="color: blue">Pending <i class="fa fa-spinner"></i></span>
+                                                    {% endif %}
 
                     </td>
                 </tr>

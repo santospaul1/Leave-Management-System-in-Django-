@@ -144,9 +144,9 @@
                                                 <td>{{ leave.posting_date }}</td>
                                                     <td>
 
-                                                        {% if leave.status == 1 %}
+                                                        {% if leave.status == '1' %}
                                                             <span style="color: green">Approved <i class="fa fa-check-square-o"></i></span>
-                                                        {% elif leave.status == 2 %}
+                                                        {% elif leave.status == '2' %}
                                                             <span style="color: red">Declined <i class="fa fa-times"></i></span>
                                                         {% else %}
                                                             <span style="color: blue">Pending <i class="fa fa-spinner"></i></span>

@@ -107,6 +107,7 @@ class Leave(models.Model):
     fromdate = models.DateField( default=None)
     todate = models.DateField( default=None)
     isread = models.IntegerField(default=0)
+    admin_remark = models.CharField(max_length=255, default=None, null=True)
 
 
  # You can use your custom User model if you have one
