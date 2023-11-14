@@ -114,9 +114,12 @@ def add_employee(request):
         if form.is_valid():
             # Create a new User and Employee instance
             user = User.objects.create_user(
-                username=form.cleaned_data['email'],
+                username=form.cleaned_data['empcode'],
                 email=form.cleaned_data['email'],
-                password=form.cleaned_data['password']
+                password=form.cleaned_data['password'],
+                first_name=form.cleaned_data['firstName'],
+                last_name=form.cleaned_data['lastName'],
+
             )
 
             employee = form.save(commit=False)  # Create an Employee instance but don't save it yet

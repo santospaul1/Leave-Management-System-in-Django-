@@ -35,9 +35,10 @@
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
                                                 <td>{{ leave.employee }}</td>
-                                                <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
-                                               <td>{{ user.employee.department }}</td>
+                                                <td>{{ leave.name.id }} {{ leave.name.lastName }}</td>
+                                                <td>{{employee.department}}</td>
                                                 <td>{{ leave.leavetype }}</td>
+
                                                 <td>{{ leave.posting_date }}</td>
                                                 <td>
                                                     {% if leave.status == '1' %}

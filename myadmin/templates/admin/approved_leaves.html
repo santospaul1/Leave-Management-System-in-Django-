@@ -35,8 +35,8 @@
                                         {% for leave in approved_leaves %}
                                         <tr>
                                             <td>{{ forloop.counter }}</td>
-                                            <td>{{ leave.employee.id }}</td>
-                                            <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
+                                            <td>{{ leave.employee.username }}</td>
+                                            <td>{{ leave.employee.empcode }} {{ leave.employee.last_name }}</td>
                                             <td>{{ user.employee.department }}</td>
                                             <td>{{ leave.leavetype }}</td>
                                             <td>{{ leave.posting_date }}</td>
