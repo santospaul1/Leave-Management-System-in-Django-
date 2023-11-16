@@ -179,10 +179,20 @@ def approved_leaves(request):
     return render(request, 'admin/approved_leaves.html', context)
 
 @login_required
-def update_employee(request, empid):
-    # Implement this view for updating employee details
-    employee = get_object_or_404(LeaveType, id=empid)
-    pass
+def update_employee(request, empcode):
+
+  employee = get_object_or_404(Employee, empcode=empcode)
+
+  form = EmployeeUpdateForm(instance=employee)
+
+  if request.method == 'POST':
+    form = EmployeeUpdateForm(request.POST, instance=employee)
+    if form.is_valid():
+      form.save()
+      return redirect('myadmin:employees')
+
+  return render(request, 'admin/update.html', {'form': form, 'employee': employee})
+
 @login_required
 def employee_leave_details(request, leave_id):
     if not request.user.is_authenticated:
@@ -393,9 +403,9 @@ def employee_update(request, empcode):
     form = EmployeeUpdateForm(request.POST, instance=employee)
     if form.is_valid():
       form.save()
-      return HttpResponseRedirect('admin/employees')
+      return redirect('myadmin:employees')
 
-  return render(request, 'admin/update.html', {'form': form})
+  return render(request, 'admin/update.html', {'form': form, 'employee': employee})
 
 
 
