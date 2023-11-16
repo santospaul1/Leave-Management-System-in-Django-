@@ -283,7 +283,7 @@ def update_leave_type(request, lid):
         form = LeaveTypeForm(request.POST)
         if form.is_valid():
             leave_type = LeaveType.objects.get(id=lid)
-            leave_type.LeaveType = form.cleaned_data['leavetype']
+            leave_type.leavetype = form.cleaned_data['leavetype']
             leave_type.Description = form.cleaned_data['Description']
             leave_type.save()
 
@@ -383,9 +383,9 @@ def pending_leaves(request):
     return render(request, 'admin/pending_history.html', context)
 
 @login_required
-def employee_update(request, id):
+def employee_update(request, empcode):
 
-  employee = get_object_or_404(Employee, id=id)
+  employee = get_object_or_404(Employee, empcode=empcode)
 
   form = EmployeeUpdateForm(instance=employee)
 
@@ -393,7 +393,7 @@ def employee_update(request, id):
     form = EmployeeUpdateForm(request.POST, instance=employee)
     if form.is_valid():
       form.save()
-      return HttpResponseRedirect('/employees')
+      return HttpResponseRedirect('admin/employees')
 
   return render(request, 'admin/update.html', {'form': form})
 
