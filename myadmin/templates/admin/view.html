@@ -1,0 +1,12 @@
+{% extends 'admin/main.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Employee information </h1>
+        <form method="post" action="{% url 'myadmin:view_employee' employee.empcode %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+        </form>
+    </div>
+{% endblock content %}

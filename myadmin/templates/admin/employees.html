@@ -29,7 +29,7 @@
       <td>{{ employee.CreationDate }}</td>
       <td>{{ employee.status }}</td>
       <td>
-          <button type="button" class="btn btn-sm btn-dark">View</button>
+          <a href="{% url 'myadmin:view_employee' employee.empcode   %}" class="btn btn-secondary btn-sm">view</a>
           <a href="{% url 'myadmin:update_employee' employee.empcode   %}" class="btn btn-secondary btn-sm">Edit</a>
         {% if employee.status == 'Active' %}
         <button type="button" class="btn btn-sm btn-success" onclick="return confirm('Are you sure you want to inactive this employee?');">Deactivate</button>

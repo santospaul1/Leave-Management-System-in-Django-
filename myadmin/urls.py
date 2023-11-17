@@ -11,6 +11,7 @@ urlpatterns = [
     path('add_employee/', views.add_employee, name='add_employee'),
     path('approved-leaves/', views.approved_leaves, name='approved_leaves'),
     path('update_employee/<str:empcode>/', views.update_employee, name='update_employee'),
+    path('view_employee/<str:empcode>/', views.view_employee, name='view_employee'),
     path('employee-leave-details/<int:leave_id>/', views.employee_leave_details, name='employee_leave_details'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('declined-leaves/', views.declined_leaves, name='declined_leaves'),

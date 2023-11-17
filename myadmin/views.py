@@ -194,6 +194,15 @@ def update_employee(request, empcode):
   return render(request, 'admin/update.html', {'form': form, 'employee': employee})
 
 @login_required
+def view_employee(request, empcode):
+
+  employee = get_object_or_404(Employee, empcode=empcode)
+
+  form = EmployeeForm(instance=employee)
+
+  return render(request, 'admin/view.html', {'form': form, 'employee': employee})
+
+@login_required
 def employee_leave_details(request, leave_id):
     if not request.user.is_authenticated:
         return redirect('myadmin:admin_login')  # Redirect to the login page if the user is not authenticated
@@ -250,7 +259,7 @@ def department(request):
 def update_department(request, deptid):
     global department
     if not request.session.get('alogin'):
-        return redirect('index')  # Redirect to the login page if not logged in
+        return redirect('myadmin:admin_login')  # Redirect to the login page if not logged in
 
     error = None
     msg = None
