@@ -43,7 +43,7 @@ class EmployeeUpdateForm(forms.ModelForm):
   class Meta:
     model = Employee
     fields = ['firstName', 'lastName', 'gender', 'mobileno',
-              'address', 'city', 'country', 'department']
+              'address', 'city', 'country', 'department', 'status']
 class AdminForm:
     class meta:
         model = Admin

@@ -5,7 +5,86 @@
         <h1>Employee information </h1>
         <form method="post" action="{% url 'myadmin:view_employee' employee.empcode %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="row ">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_empcode">Reg. Number:</label>
+                        {{ employee.empcode }}
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_firstName"><strong>First Name:</strong></label>
+                        {{ employee.firstName }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_lastName">Last Name:</label>
+                        {{ employee.lastName }}
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_email">Email:</label>
+                        {{ employee.email }}
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_mobileno">Mobile Number:</label>
+                        {{ employee.mobileno }}
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_department">Department:</label>
+                        {{ employee.department }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        {{ employee.country }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_address">Address:</label>
+                        {{ employee.address }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        {{ employee.city }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_gender">Gender:</label>
+                        {{ employee.gender }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_status">Status:</label>
+                        {{ employee.status }}
+                    </div>
+                </div>
+            </div>
 
         </form>
     </div>

@@ -1,12 +1,69 @@
 {% extends 'admin/main.html' %}
 
 {% block content %}
-    <div class="container">
-        <h1>Update Employee</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4">Update Employee</h1>
         <form method="post" action="{% url 'myadmin:update_employee' employee.empcode %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Update</button>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_firstName">First Name:</label>
+                        {{ form.firstName }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_lastName">Last Name:</label>
+                        {{ form.lastName }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_mobileno">Mobile Number:</label>
+                        {{ form.mobileno }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        {{ form.country }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_address">Address:</label>
+                        {{ form.address }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        {{ form.city }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_department">Department:</label>
+                        {{ form.department }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_status"><Status:</label>
+                        {{ form.status }}
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 {% endblock content %}
