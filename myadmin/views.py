@@ -133,6 +133,21 @@ def add_employee(request):
         form = EmployeeForm()
 
     return render(request, 'admin/add_employee.html', {'form': form})
+
+@login_required
+def delete_employee(request):
+    if request.method == "GET" and 'del' in request.GET:
+        empcode = request.GET.get('del')
+        try:
+            employee = Employee.objects.get(empcode=empcode)
+            employee.delete()
+            messages.success(request, "The selected employee account has been deleted")
+        except Employee.DoesNotExist:
+            messages.error(request, "Employee account not found")
+
+    employee = Employee.objects.all()
+    return render(request, 'admin/employees.html', {'employee': employee})
+
 @login_required
 def add_leave_type(request):
     if request.method == 'POST':

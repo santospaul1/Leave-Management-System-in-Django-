@@ -4,9 +4,90 @@
     <div class="container">
         <h1>Add Employee</h1>
         <form method="post" action="{% url 'myadmin:add_employee' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Employee</button>
+                     {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_empcode">Registration No:</label>
+                        <pre style="tab-size: 16;">{{ form.empcode }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_email">Email:</label>
+                        <pre style="tab-size: 16;">{{ form.email }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_password">Password:</label>
+                        <pre style="tab-size: 16;">{{ form.password }}</pre>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_firstName">First Name:</label>
+                        <pre style="tab-size: 16;">{{ form.firstName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_lastName">Last Name:</label>
+                        <pre style="tab-size: 16;">{{ form.lastName }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_mobileno">Mobile Number:</label>
+                        <pre style="tab-size: 16;">{{ form.mobileno }}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <pre style="tab-size: 16;">{{ form.country }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_address">Address:</label>
+                        <pre style="tab-size: 16;">{{ form.address }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        <pre style="tab-size: 16;">{{ form.city }}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_department">Department:</label>
+                        <pre style="tab-size: 16;">{{ form.department }}</pre>
+                    </div>
+                </div>
+                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_gender">Gender:</label>
+                        <pre style="tab-size: 16;">{{ form.gender }}</pre>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_status">Status:  </label>
+                        <pre style="tab-size: 16;">{{ form.status }}</pre>
+                    </div>
+                </div>
+            </div>
+            <center><button type="submit" class="btn btn-primary">submit</button></center>
         </form>
     </div>
 {% endblock content %}

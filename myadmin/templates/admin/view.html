@@ -1,91 +1,55 @@
 {% extends 'admin/main.html' %}
 
 {% block content %}
-    <div class="container">
-        <h1>Employee information </h1>
-        <form method="post" action="{% url 'myadmin:view_employee' employee.empcode %}">
-            {% csrf_token %}
-            <div class="row ">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_empcode">Reg. Number:</label>
-                        {{ employee.empcode }}
-                    </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_firstName"><strong>First Name:</strong></label>
-                        {{ employee.firstName }}
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_lastName">Last Name:</label>
-                        {{ employee.lastName }}
-                    </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_email">Email:</label>
-                        {{ employee.email }}
-                    </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_mobileno">Mobile Number:</label>
-                        {{ employee.mobileno }}
-                    </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_department">Department:</label>
-                        {{ employee.department }}
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_country">Country:</label>
-                        {{ employee.country }}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_address">Address:</label>
-                        {{ employee.address }}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_city">City:</label>
-                        {{ employee.city }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_gender">Gender:</label>
-                        {{ employee.gender }}
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="id_status">Status:</label>
-                        {{ employee.status }}
-                    </div>
-                </div>
-            </div>
-
-        </form>
+    <div class="container mt-4">
+       <center> <h3>Employee Information</h3></center>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Reg. Number</th>
+                    <td>{{ employee.empcode }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">First Name</th>
+                    <td>{{ employee.firstName }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Last Name</th>
+                    <td>{{ employee.lastName }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ employee.email }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Mobile Number</th>
+                    <td>{{ employee.mobileno }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Department</th>
+                    <td>{{ employee.department }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Country</th>
+                    <td>{{ employee.country }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Address</th>
+                    <td>{{ employee.address }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">City</th>
+                    <td>{{ employee.city }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Gender</th>
+                    <td>{{ employee.gender }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Status</th>
+                    <td>{{ employee.status }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 {% endblock content %}

@@ -9,7 +9,7 @@
 
 
 
-<table class="table table-striped table-bordered">
+<table class="table table-dark table-borderless mb-0">
   <thead>
     <tr>
       <th scope="col">Id</th>
@@ -31,7 +31,9 @@
       <td>
           <a href="{% url 'myadmin:view_employee' employee.empcode   %}" class="btn btn-secondary btn-sm">view</a>
           <a href="{% url 'myadmin:update_employee' employee.empcode   %}" class="btn btn-secondary btn-sm">Edit</a>
-
+          <a href="{% url 'myadmin:delete_employee' %}?del={{ employee.empcode }}" onclick="return confirm('Do you want to delete?')">
+                                                        <i class="fa fa-trash" style="color:red"></i>
+                                                    </a>
       </td>
     </tr>
     {% endfor %}

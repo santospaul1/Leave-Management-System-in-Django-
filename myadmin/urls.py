@@ -19,6 +19,7 @@ urlpatterns = [
     path('leavetype-list/', views.leave_type_list, name='leavetype_list'),
     path('update_leave_type/<int:lid>/', views.update_leave_type, name='update_leave_type'),
     path('employees/', views.employees, name='employees'),
+    path('delete_employee/', views.delete_employee, name='delete_employee'),
     path('admin_login/', views.admin_login, name='admin_login'),
     path('leaves_history/', views.leaves_history, name='leave_history'),
     path('user_logout/', views.user_logout, name='user_logout'),
