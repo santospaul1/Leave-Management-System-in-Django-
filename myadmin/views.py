@@ -86,7 +86,8 @@ def add_admin(request):
             username=username
         )
 
-        return render(request, 'admin/add_admin_sucess.html', {'message': 'New admin has been added successfully'})
+        messages.success(request, 'New admin has been added successfully')
+        return redirect('myadmin:manage_admin')  # Redirect to the same page to show the message
 
     return render(request, 'admin/add_admin.html')
 
@@ -400,6 +401,7 @@ def manage_admin(request):
         id = request.GET.get('del')
         try:
             admin = Admin.objects.get(id=id)
+
             admin.delete()
             messages.success(request, "The selected admin account has been deleted")
         except Admin.DoesNotExist:

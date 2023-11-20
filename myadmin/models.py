@@ -13,6 +13,11 @@ class Admin(models.Model):
     username = models.CharField(max_length=100, unique=True)
     CreationDate = models.DateField(auto_now_add=True)
 
+    def delete(self, *args, **kwargs):
+        # Delete the associated user
+        self.user.delete()
+        super().delete(*args, **kwargs)
+
     def __str__(self):
         return self.username
 
@@ -73,6 +78,11 @@ class Employee(models.Model):
         default='Active'
     )
     CreationDate = models.DateField(auto_now_add=True)
+
+    def delete(self, *args, **kwargs):
+        # Delete the associated user
+        self.user.delete()
+        super().delete(*args, **kwargs)
     def __str__(self):
         return f"{self.empcode} - {self.firstName} {self.lastName}"
 

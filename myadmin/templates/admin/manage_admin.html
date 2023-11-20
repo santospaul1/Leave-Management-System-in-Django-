@@ -8,6 +8,16 @@
 <body>
  {% include 'admin/sidebars.html' %}
     <!-- preloader area start -->
+{% if messages %}
+  {% for message in messages %}
+    <div class="{% if message.tags %}alert alert-{{ message.tags }}{% endif %}" role="alert">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+<!-- Your existing form rendering code here -->
+
 
                             <div class="card-body">
                                 <div class="data-tables datatable-dark">
