@@ -103,7 +103,8 @@ def add_department(request):
         Department.objects.filter(Q(department_name__isnull=True) | Q(department_shortname__isnull=True)).delete()
         department.save()
 
-        return render(request, 'admin/department_success.html', {'message': 'Department created successfully'})
+        messages.success(request, 'New department has been added successfully')
+        return redirect('myadmin:department')
 
     return render(request, 'admin/add_department.html')
 
