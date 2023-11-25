@@ -103,7 +103,8 @@ def add_department(request):
         Department.objects.filter(Q(department_name__isnull=True) | Q(department_shortname__isnull=True)).delete()
         department.save()
 
-        return render(request, 'admin/department_success.html', {'message': 'Department created successfully'})
+        messages.success(request, 'New department has been added successfully')
+        return redirect('myadmin:department')
 
     return render(request, 'admin/add_department.html')
 
@@ -128,7 +129,8 @@ def add_employee(request):
             employee.save()  # Now save the employee to the database
 
             # Redirect to a success page or handle success as needed
-            return render(request, 'admin/success.html')
+            messages.success(request, 'New employee has been added successfully')
+            return redirect('myadmin:employees')
 
     else:
         form = EmployeeForm()
@@ -159,7 +161,8 @@ def add_leave_type(request):
         leavetype.save()
 
         # Redirect to a success page or handle success as needed
-        return render(request, 'admin/leave_type_success.html')
+        messages.success(request, 'New leave has been added successfully')
+        return redirect('myadmin:leavetype_list')
 
     else:
         form = LeaveTypeForm()  # Render an empty form
