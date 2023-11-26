@@ -11,7 +11,7 @@ urlpatterns = [
     path('change_password/', change_password, name='change_password'),
     path('leave_history/', leave_history, name='leave_history'),
     path('apply_leave/', apply_leave, name='apply_leave'),
-    path('update_profile/', views.update_profile, name='update_profile'),
+    path('update_profile/<str:empcode>/', views.update_profile, name='update_profile'),
     path('logout/', views.logout, name='logout'),
 
     # Add other URL patterns as needed

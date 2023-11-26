@@ -13,14 +13,54 @@
 
 <body>
     <!-- Place your HTML content here, including the update profile form -->
-    <form method="post">
-        {% csrf_token %}
-        <!-- Add your form fields and content here, using Django template tags to populate values -->
-        <input type="text" name="firstName" value="{{ employee.FirstName }}">
-        <!-- Other form fields go here -->
+    <form method="post" action="{% url 'employee_panel:update_profile' user.employee.empcode %}">
+            {% csrf_token %}
 
-        <button type="submit" name="update">MAKE CHANGES</button>
-    </form>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_firstName">First Name:</label>
+                        {{ form.firstName }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_lastName">Last Name:</label>
+                        {{ form.lastName }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_mobileno">Mobile Number:</label>
+                        {{ form.mobileno }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        {{ form.country }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_address">Address:</label>
+                        {{ form.address }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        {{ form.city }}
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+
     <!-- Include JavaScript and other scripts here -->
 </body>
 

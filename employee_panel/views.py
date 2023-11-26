@@ -3,7 +3,7 @@ from datetime import datetime
 from django.db.models import Q
 from django.http import Http404
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -31,7 +31,7 @@ def change_password(request):
         else:
             messages.error(request, 'Your current password is wrong.')
 
-    return render(request, 'accounts/../myadmin/templates/employee/change_password.html')
+    return render(request, 'employee/change_password.html')
 
 @login_required
 def leave_history(request):
@@ -103,21 +103,18 @@ def logout(request):
     request.session.flush()
     return redirect('accounts:employee_login')  # Redirect to the 'index' URL name or any other URL
 @login_required()
-def update_profile(request):
-    try:
-        user_profile = Employee.objects.get(user=request.user)
-    except Employee.DoesNotExist:
-        # Handle the case where the Employee object does not exist for the user
-        raise Http404("Employee profile not found")
+def update_profile(request, empcode):
 
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, instance=user_profile)
-        if form.is_valid():
-            employee = form.save()
-            messages.success(request, 'Your record has been updated successfully')
-        else:
-            messages.error(request, 'Form is not valid')
-    else:
-        form = ProfileUpdateForm(instance=user_profile)
+  employee = get_object_or_404(Employee, empcode=empcode)
 
-    return render(request, 'employee/update_profile.html', {'form': form})
+  form = ProfileUpdateForm(instance=employee)
+
+  if request.method == 'POST':
+    form = ProfileUpdateForm(request.POST, instance=employee)
+    if form.is_valid():
+      name = form.cleaned_data['firstName']
+      employee.firstName = name
+      form.save()
+      return redirect('employee_panel:apply_leave')
+
+  return render(request, 'employee/update_profile.html', {'form': form, 'employee': employee})
