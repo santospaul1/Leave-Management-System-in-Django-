@@ -437,7 +437,7 @@ def employee_update(request, empcode):
   return render(request, 'admin/update.html', {'form': form, 'employee': employee})
 
 
-
+#count approved apps
 def approved_app_counter_view(request):
 
     leavtypcount = Leave.objects.filter(status=1).count()
