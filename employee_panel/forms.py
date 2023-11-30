@@ -15,4 +15,4 @@ class LeaveForm(forms.Form):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Employee
-        fields = ['firstName', 'lastName', 'gender', 'address', 'city', 'country', 'mobileno']
+        fields = ['firstName', 'lastName','gender', 'address', 'city', 'country', 'mobileno']

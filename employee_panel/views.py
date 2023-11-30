@@ -112,8 +112,6 @@ def update_profile(request, empcode):
   if request.method == 'POST':
     form = ProfileUpdateForm(request.POST, instance=employee)
     if form.is_valid():
-      name = form.cleaned_data['firstName']
-      employee.firstName = name
       form.save()
       return redirect('employee_panel:apply_leave')
 

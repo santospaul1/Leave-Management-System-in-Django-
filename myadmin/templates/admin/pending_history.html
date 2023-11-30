@@ -36,8 +36,8 @@
                                     <tbody>
                                         {% for leave in leaves %}
                                         <tr>
-                                          <td>{{ forloop.counter }}</td>
-                                                <td>{{ leave.employee.user_name }}</td>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ leave.employee }}</td>
                                                 <td>{{ leave.employee.first_name }} {{ leave.employee.last_name }}</td>
 
                                                 <td>{{ leave.leavetype }}</td>
