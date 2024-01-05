@@ -1,71 +1,73 @@
-# Leave Management System
+# Django Leave Management System
 
-## Overview
+This Django application is a Leave Management System designed to facilitate leave requests and management within an organization. It is divided into two main sections: Admin Section and Employee Section.
 
-Welcome to the Leave Management System! This Django application is designed to streamline leave-related processes for both administrators and employees. The system is divided into two main sections: **Admin Section** and **Employee Section**.
-
-## Admin Section
-
-### Dashboard
-
-The dashboard provides an overview for administrators, allowing them to:
-
-- View available leave types
-- Access information about employees
-- Manage departments
-- Review pending, declined, and approved leaves
-
-### Employee Section
-
-In this section, administrators can:
-
-- View, edit, and add new employees
-
-### Department Section
-
-Administrators can efficiently:
-
-- Add, update, and view departments
-
-### Leave Section
-
-Admins have control to:
-
-- View, edit, and add new leave types
-
-### Manage Leave Section
-
-Administrators can:
-
-- Approve or decline leave applications
-- View pending, declined, and approved leaves
+## Features
 
 ### Admin Section
 
-This area allows administrators to:
+1. **Dashboard**
+   - View available leave types, employees, departments, pending leaves, declined leaves, and approved leaves.
 
-- Add new administrators
-- Update existing administrator profiles
+2. **Employee Section**
+   - View, edit, and add new employee details.
 
-## Employee Section
+3. **Department Section**
+   - Add, update, and view department information.
 
-This section is designed for employees to manage their leave-related activities:
+4. **Leave Section**
+   - View, edit, and add new leave types.
 
-- Apply for leave
-- View leave application history
-- Update personal information
-- Recover passwords if necessary
+5. **Manage Leave Section**
+   - Approve and decline leave requests.
+   - View pending, declined, and approved leaves.
+
+6. **Admin Section**
+   - Add new admin and update admin details.
+
+### Employee Section
+
+1. Apply for leave.
+2. View leave application history.
+3. Update personal information.
+4. Recover password.
 
 ## Login Details
 
 ### Admin Section
-
-- Username: lamar
-- Password: 1252
+- **Username:** lamar
+- **Password:** 1252
 
 ### Employee Section
+- **Username:** AKAM001
+- **Password:** 1000
 
-- Username: AKAM001
-- Password: 1000
+## Installation
 
-Feel free to explore the Leave Management System and enjoy the efficiency it brings to leave-related processes!
+Follow these steps to set up the Leave Management System:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/django-leave-management.git
+   cd django-leave-management
+2. Install dependencies:
+   ```bash
+    pip install -r requirements.txt
+
+3.  Apply migrations:
+    ```bash
+    python manage.py migrate
+4.  Create a superuser for initial login:
+    ```bash
+    python manage.py createsuperuser
+5.  Run the development server:
+    ```bash
+    python manage.py runserver
+6.  Access the application at http://localhost:8000
+
+<h2>Contributing</h2>
+Contributions are welcome! Follow the standard GitHub Fork & Pull Request workflow.
+
+<h2>License</h2>
+This project is licensed under the MIT License - see the LICENSE file for details.
+
