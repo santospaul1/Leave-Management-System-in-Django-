@@ -48,7 +48,7 @@ Follow these steps to set up the Leave Management System:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/django-leave-management.git
+   git clone https://github.com/santospaul1/Leave-Management-System-in-Django-.git
    cd django-leave-management
 2. Install dependencies:
    ```bash
